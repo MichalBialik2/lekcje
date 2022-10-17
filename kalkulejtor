@@ -1,0 +1,182 @@
+import math
+
+pi = math.pi
+x = 0
+
+def Szescian(y):
+    if y == 1:
+        a = float(input("podaj długość krawędzi "))
+        return 6*a**2
+    if y == 2:
+        a = float(input("podaj długość krawędzi "))
+        return a**3
+def Prosto(y):
+    if y == 1:
+        a = float(input("podaj długość 1 krawędzi "))
+        b = float(input("podaj długość 2 krawędzi "))
+        c = float(input("podaj długość 3 krawędzi "))
+        return 2*(a*b) + 2*(a*c) + 2*(c*b)
+    if y == 2:
+        a = float(input("podaj długość 1 krawędzi "))
+        b = float(input("podaj długość 2 krawędzi "))
+        c = float(input("podaj długość 3 krawędzi "))
+        return a*b*c
+def Grania(y):
+    if y == 1:
+        a = float(input("podaj pole podstawy "))
+        b = float(input("podaj pole boczne "))
+        return 2*a + b
+    if y == 2:
+        a = float(input("podaj pole podstawy "))
+        a = float(input("podaj wysokość "))
+        return a*b
+def Ostro(y):
+    if y == 1:
+        a = float(input("podaj pole podstawy "))
+        b = float(input("podaj pole boczne "))
+        return a + b
+    if y == 2:
+        a = float(input("podaj pole podstawy "))
+        b = float(input("podaj wysokość "))
+        return a*b / 3
+def Walec(y):
+    if y == 1:
+        a = float(input("podaj długość promienia w podstawie "))
+        b = float(input("podaj Wysokość "))
+        return 2*pi*a**2+2*pi*a*b
+    if y == 2:
+        a = float(input("podaj długość promienia w podstawie "))
+        b = float(input("podaj Wysokość "))
+        return pi*a**2*b
+def Stożek(y):
+    if y == 1:
+        a = float(input("podaj długość tworzącej stożka "))
+        b = float(input("podaj długość promienia w podstawie "))
+        return pi*b**2 + pi*a*b
+    if y == 2:
+        a = float(input("podaj długość promienia w podstawie "))
+        b = float(input("podaj Wysokość "))
+        return pi*a**2*b /3
+def Kula(y):
+    if y == 1:
+        b = float(input("podaj długość promienia w podstawie "))
+        return 4*pi*b**2
+    if y == 2:
+        a = float(input("podaj długość promienia w podstawie "))
+        return 1.33*pi*a**3
+def Kwadrat(y):
+    if y == 1:
+        b = float(input("podaj długość boku "))
+        return 4*b
+    if y == 2:
+        a = float(input("podaj długość boku "))
+        return a**2
+def Prosto(y):
+    if y == 1:
+        a = float(input("podaj długość boku 1 "))
+        b = float(input("podaj długość boku 2 "))
+        return 2*a + 2*b
+    if y == 2:
+        a = float(input("podaj długość boku "))
+        b = float(input("podaj długość boku 2 "))
+        return a*b
+def Równo(y):
+    if y == 1:
+        a = float(input("podaj długość boku 1 "))
+        b = float(input("podaj długość boku 2 "))
+        return 2*a + 2*b
+    if y == 2:
+        a = float(input("podaj długość podstawy "))
+        b = float(input("podaj wysokość "))
+        return a*b
+def Trap(y):
+    if y == 1:
+        a = float(input("podaj długość boku 1 "))
+        b = float(input("podaj długość boku 2 "))
+        c = float(input("podaj długość boku 3 "))
+        d = float(input("podaj długość boku 4 "))
+        return a + b + c + d
+    if y == 2:
+        a = float(input("podaj długość podstawy "))
+        c = float(input("podaj długość 2 podstawy "))
+        b = float(input("podaj wysokość "))
+        return (a+b)*c /2
+def Trój(y):
+    if y == 1:
+        a = float(input("podaj długość boku 1 "))
+        b = float(input("podaj długość boku 2 "))
+        c = float(input("podaj długość boku 3 "))
+        return a + b + c 
+    if y == 2:
+        a = float(input("podaj długość podstawy "))
+        b = float(input("podaj wysokość "))
+        return a*b / 2
+def Koło(y):
+    if y == 1:
+        a = float(input("podaj długość promienia "))
+        return 2*pi*r 
+    if y == 2:
+        a = float(input("podaj długość promienia "))
+        return pi*a**2
+def Romb(y):
+    if y == 1:
+        a = float(input("podaj długość boku "))
+        return a*4
+    if y == 2:
+        a = float(input("podaj długość boku "))
+        b = float(input("podaj wysokość "))
+        return a*b
+    
+
+
+
+
+
+
+while True:
+    x += 1
+    print("                    Obliczenie numer", x)
+    ks = float(input(" 1 = Sześcian\n 2 = Prostopadłościa\n 3 = Graniastosłup\n 4 = Ostrosłup\n 5 = Walec\n 6 = Stożek\n 7 = Kula\n 8 =  Kwadrat\n 9 = Prostokąt\n 10 = Równoległobok\n 11 = Trapez\n 12 = Trójkąt\n 13 = Koło\n 14 = Romb\n "))
+
+    if ks == 1:
+        y = float(input("1 = Pole Powierzchni 2 = Objętość "))
+        print(Szescian(y))
+    elif ks == 2:
+        y = float(input("1 = Pole Powierzchni 2 = Objętość "))
+        print(Prosto(y))
+    elif ks == 3:
+        y = float(input("1 = Pole Powierzchni 2 = Objętość "))
+        print(Grania(y))
+    elif ks == 4:
+        y = float(input("1 = Pole Powierzchni 2 = Objętość "))
+        print(Ostro(y))   
+    elif ks == 5:
+        y = float(input("1 = Pole Powierzchni 2 = Objętość "))
+        print(Walec(y))
+    elif ks == 6:
+        y = float(input("1 = Pole Powierzchni 2 = Objętość "))
+        print(Stożek(y))
+    elif ks == 7:
+        y = float(input("1 = Pole Powierzchni 2 = Objętość "))
+        print(Kula(y))
+    elif ks == 8:
+        y = float(input("1 = Obwód 2 = Pole "))
+        print(Kwadrat(y))
+    elif ks == 9:
+        y = float(input("1 = Obwód 2 = Pole "))
+        print(Prosto(y))
+    elif ks == 10:
+        y = float(input("1 = Obwód 2 = Pole "))
+        print(Równo(y))
+    elif ks == 11:
+        y = float(input("1 = Obwód 2 = Pole "))
+        print(Trap(y))
+    elif ks == 12:
+        y = float(input("1 = Obwód 2 = Pole "))
+        print(Trój(y))
+    elif ks == 13:
+        y = float(input("1 = Obwód 2 = Pole "))
+        print(Koło(y))
+    elif ks == 14:
+        y = float(input("1 = Obwód 2 = Pole "))
+        print(Romb(y))
