@@ -10,6 +10,8 @@ Gold = 0
 BHP = None
 BD = None
 Dmg = None
+Exp = 0
+Exp1 = 100
 #  ^ Start
 
 
@@ -54,6 +56,31 @@ if x == "Archer":
     D.append("Fog Cloud")
     D.append("Head Shot")
 # ^ Klasy 
+def Lev(t):
+    global Lv
+    global Exp 
+    global Exp1
+    global MaxM
+    global Hp
+    global M
+    global MaxHp
+    Exp += t*(1 + Lv/4)
+    while True:
+        if Exp1 <= Exp:
+            Lv += 1
+            Exp -= Exp1
+            print(f"You are level {Lv} now")
+            Exp1 += 30
+            MaxHp += 10
+            Hp += 10
+            MaxM += 5
+            M += 5
+        else:
+            break
+        
+    
+    
+    
 def Moves(m):
     global M
     global BHP
@@ -62,9 +89,9 @@ def Moves(m):
         M += 5
         if M > MaxM:
             M = MaxM
-    Dmg = (10 + Lv*2)
-    BHP -= Dmg
-    print(f"You dealt {Dmg} Damage!")
+        Dmg = (10 + Lv*2)
+        BHP -= Dmg
+        print(f"\n You dealt {Dmg} Damage! \n")
 
 
  
@@ -75,8 +102,9 @@ def Stats():
     print("       Mana ", M,"/",MaxM)
     print("       Your Deck", D)
     print("       Gold" , Gold)
+    print("       Exp", Exp,"/",Exp1)
 print(Stats())
-#funkcja statystyk ^
+#funkcje ^
 while True:
     c = random.randint(1, 1)
     if c == 1:
@@ -86,12 +114,18 @@ while True:
         while True:
             a = random.randint(1, 2)
             if a == 1:
-                BD = random.randint(5 + (Lv*2), 10 + (Lv*2))
+                BD = random.randint(5 + (Lv*2), 10 + (Lv*3))
                 #Zwykle uderzenie
             if a == 2:
-                BD = 7*(1 + Lv/4) 
+                BD = 7*(1 + Lv/2) 
                 #zabranie golda
             print(D)
             L = int(input("Choose ability from 1 to 4 "))
             L1 = D[(L - 1)]
             Moves(L1)
+            if BHP <= 0:
+                print("Bandit got defeated!")
+                vc = random.randint(1, 10)
+                Gold += vc
+                print(f"You got {vc} Gold\n")
+                Lev(50)
