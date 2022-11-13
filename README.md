@@ -16,6 +16,7 @@ Exp1 = 100
 Eff = 0
 Eff1 = None
 SD = 0
+DmgMul = 1
 #  ^ Start
 
 
@@ -95,13 +96,27 @@ def Moves(m):
         M += 5
         if M > MaxM:
             M = MaxM
-        Dmg = (10 + Lv*2)
+        Dmg = (10 + Lv*2)*DmgMul
         BHP -= Dmg
         print(f"\n You dealt {Dmg} Damage!  ( Bandit has {BHP} HP left)  \n")
+        
     if m == "Parry (-5M)":
-        Eff = 1
-        Eff1 = 1
-        print("\nYou used Parry, next enemy attack deals 50% less DMG and you reflect 50% of innate DMG\n")
+        if M >= 5:
+            M -= 5
+            Eff = 1
+            Eff1 = 1
+            print("\n You used Parry, next enemy attack deals 50% less DMG and you reflect 50% of innate DMG\n")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+    if m == "Combo (-10M)":
+        if M >= 10:
+            M -= 10
+            for i in range(3):
+                c = random.randint((2+(1*Lv/2))*DmgMul, (10+(1*Lv/2))*DmgMul)
+                print(f"\n You dealt {c} Damage!")
+                BHP -= c
+         
         
         
         
@@ -145,7 +160,11 @@ def SpecEff(n, n2):
         
 
 
- 
+def AS():
+    L = int(input("\n Choose ability from 1 to 4 "))
+    L1 = D[(L - 1)]
+    sleep(0.3)
+    Moves(L1)
 def Stats():
     print("\n Your", Klasa, "Stats")
     print("       Lv ", Lv)
@@ -166,11 +185,8 @@ while True:
         sleep(1.4)
         while True:
             a = random.randint(1, 2)
-            print(D)
-            L = int(input("Choose ability from 1 to 4 "))
-            L1 = D[(L - 1)]
-            sleep(0.3)
-            Moves(L1)
+            print(f"\n {D}")
+            AS()
             if BHP <= 0:
                 sleep(1)
                 print("Bandit got defeated!")
@@ -199,7 +215,7 @@ while True:
                 stel = random.randint(0, 2)
                 Gold -= stel
                 sleep(1)
-                print(f"Bandit used Thievery , he dealt {BD} DMG and stole {stel} Gold, now you have {Hp} HP")
+                print(f"Bandit used Thievery , he dealt {BD} DMG and stole {stel} Gold, now you have {Hp} HP \n")
                 if Hp <= 0:
                     sleep(1)
                     print("\n YOU DIED \n")
@@ -217,3 +233,4 @@ while True:
                     Lev(50)
                     break
             sleep(1)
+                
