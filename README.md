@@ -1,4 +1,5 @@
 import random
+from time import sleep
 x = input("Choose starting class: \n Warrior \n Wizard \n Tank \n Archer \n ")
 Lv = 0
 MaxHp = None
@@ -6,12 +7,15 @@ Hp = None
 M = None
 MaxM = None
 D = []
-Gold = 0 
+Gold = 5
 BHP = None
 BD = None
 Dmg = None
 Exp = 0
 Exp1 = 100
+Eff = 0
+Eff1 = None
+SD = 0
 #  ^ Start
 
 
@@ -21,10 +25,10 @@ if x == "Warrior":
     Hp = 120
     M = 25
     MaxM = 25
-    D.append("Swing")
-    D.append("Parry")
-    D.append("Combo")
-    D.append("Rage")
+    D.append("Swing (+5M)")
+    D.append("Parry (-5M)")
+    D.append("Combo (-10M)")
+    D.append("Rage (-10M)")
 if x == "Wizard":
     Klasa = "Wizard"
     Hp = 80
@@ -85,13 +89,60 @@ def Moves(m):
     global M
     global BHP
     global Dmg
-    if m == "Swing": 
+    global Eff
+    global Eff1
+    if m == "Swing (+5M)": 
         M += 5
         if M > MaxM:
             M = MaxM
         Dmg = (10 + Lv*2)
         BHP -= Dmg
-        print(f"\n You dealt {Dmg} Damage! \n")
+        print(f"\n You dealt {Dmg} Damage!  ( Bandit has {BHP} HP left)  \n")
+    if m == "Parry (-5M)":
+        Eff = 1
+        Eff1 = 1
+        print("\nYou used Parry, next enemy attack deals 50% less DMG and you reflect 50% of innate DMG\n")
+        
+        
+        
+
+def EnMoves(M, a):
+    global BD
+    global Hp
+    global Gold
+    global BHP
+    global Eff
+    if M == 1:
+        if a == 1:
+            BD = random.randint(5 + (Lv*2), 10 + (Lv*2))
+        if a == 2:
+            BD = 7*(1 + Lv/2) 
+    
+    
+    
+    if Eff == 1:
+        SpecEff(Eff1, 0)
+        Eff = 0
+            
+
+def SpecEff(n, n2):
+    global SD
+    global M
+    global BHP
+    global Dmg
+    global BD
+    #Parry
+    if n == 1:
+        SD = BD*0.5
+        BD = BD*0.5
+        if n2 == 1:
+            SD = 0
+            Eff = 0
+            BD = BD
+        
+       
+        
+        
 
 
  
@@ -107,25 +158,62 @@ print(Stats())
 #funkcje ^
 while True:
     c = random.randint(1, 1)
+    sleep(1.4)
     if c == 1:
-        print("You run across hostile bandit!")
         BHP = 60*(1 + Lv/3)
+        print(f"\n You run across hostile bandit!({BHP} HP)")
         #Na dole pętla walki
+        sleep(1.4)
         while True:
             a = random.randint(1, 2)
-            if a == 1:
-                BD = random.randint(5 + (Lv*2), 10 + (Lv*3))
-                #Zwykle uderzenie
-            if a == 2:
-                BD = 7*(1 + Lv/2) 
-                #zabranie golda
             print(D)
             L = int(input("Choose ability from 1 to 4 "))
             L1 = D[(L - 1)]
+            sleep(0.3)
             Moves(L1)
             if BHP <= 0:
+                sleep(1)
                 print("Bandit got defeated!")
                 vc = random.randint(1, 10)
                 Gold += vc
                 print(f"You got {vc} Gold\n")
                 Lev(50)
+                break
+            if a == 1:
+                EnMoves(1, 1)
+                #Zwykle uderzenie
+            if a == 2:
+                EnMoves(1, 2)
+                #zabranie golda
+            if a == 1:
+                Hp -= BD
+                    
+                sleep(1)
+                print(f"Bandit used Stab, he dealt {BD} DMG, now you have {Hp} HP")
+                if Hp <= 0:
+                    sleep(1)
+                    print("\n YOU DIED \n")
+                    break
+            if a == 2:
+                Hp -= BD
+                stel = random.randint(0, 2)
+                Gold -= stel
+                sleep(1)
+                print(f"Bandit used Thievery , he dealt {BD} DMG and stole {stel} Gold, now you have {Hp} HP")
+                if Hp <= 0:
+                    sleep(1)
+                    print("\n YOU DIED \n")
+                    break
+            if SD != 0:
+                BHP -= SD
+                print(f"Bandit got damaged for {SD} damage")
+                SpecEff(Eff1, 1)
+                if BHP <= 0:
+                    sleep(1)
+                    print("Bandit got defeated!")
+                    vc = random.randint(1, 10)
+                    Gold += vc
+                    print(f"You got {vc} Gold\n")
+                    Lev(50)
+                    break
+            sleep(1)
