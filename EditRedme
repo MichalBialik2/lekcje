@@ -20,6 +20,7 @@ DmgMul = 1
 #  ^ Start
 ParryTime = 0
 RageTime = 0
+FirePistolTime = 0
 # ^ SpecjalneEfekty
 
 if x == "Warrior":
@@ -38,10 +39,10 @@ if x == "Wizard":
     MaxHp = 80
     M = 60
     MaxM = 60
-    D.append("Fire Pistol")
-    D.append("Earth Tremor")
-    D.append("Fog Cloud")
-    D.append("Weak Heal")
+    D.append("Fire Pistol (-10M)")
+    D.append("Mana Restore (+25M)")
+    D.append("Fog Cloud(-20M)")
+    D.append("Weak Heal(-10M)")
 if x == "Tank":
     Klasa = "Tank"
     Hp = 140
@@ -76,7 +77,7 @@ def Lev(t):
         if Exp1 <= Exp:
             Lv += 1
             Exp -= Exp1
-            print(f"You are level {Lv} now")
+            print(f"You are level {Lv} now\n")
             Exp1 += 30
             MaxHp += 10
             Hp += 10
@@ -95,6 +96,10 @@ def Moves(m):
     global Eff
     global Eff1
     global ParryTime
+    global RageTime
+    global DmgMul
+    global Lv
+    global FirePistolTime
     if m == "Swing (+5M)": 
         M += 5
         if M > MaxM:
@@ -117,7 +122,11 @@ def Moves(m):
         if M >= 10:
             M -= 10
             for i in range(3):
-                c = random.randint((2+(1*Lv/2)), (10+(1*Lv/2)))
+                a = 2+(1+(Lv/2))
+                b = 10+(1+(Lv/2))
+                print(f"{a} / {b}")
+                c = random.randint(2, 10)
+                c = c*(1+(Lv/3))
                 c = c*DmgMul
                 print(f"\n You dealt {c} Damage!")
                 BHP -= c
@@ -125,13 +134,25 @@ def Moves(m):
             print("You dont have enought mana to use this ability")
             AS()
     if m == "Rage (-10M)":
+        if M >= 10 and RageTime == 0:
+            M -= 10
+            RageTime += 3
+            DmgMul += 0.7
+            print("\n You used Rage, your next 2 attacks deal 70% more Dmg")
+        else:
+            print("You dont have enought mana to use this ability or u have Rage actived already")
+            AS()    
+    if m == "Fire Pistol (-10M)":
         if M >= 10:
             M -= 10
-            
+            Dmg = (10 + Lv*2)*DmgMul
+            BHP -= Dmg
+            FirePistolTime = 2
+            print(f"\n You dealt {Dmg} Damage and set enemy on fire for 2 rounds!  ( Bandit has {BHP} HP left)  \n")
         else:
             print("You dont have enought mana to use this ability")
-            AS()    
-         
+            AS()
+        
         
         
         
@@ -162,12 +183,12 @@ def SpecEff(n):
     global ParryTime
     #Parry
     if ParryTime == 1:
-        SD = BD*0.5
+        SD += BD*0.5
         BD = BD*0.5
         
             
             
-def Timere():
+def Timere(Ded):
     global SD
     global M
     global BHP
@@ -176,12 +197,25 @@ def Timere():
     global ParryTime
     global RageTime
     global Eff1
+    global DmgMul
+    global FirePistolTime
     #Parry
-    if ParryTime <= 1:
+    if ParryTime <= 1 or Ded == 1:
         ParryTime = 0
         SD = 0
         Eff1 = 0
         BD = BD
+    if RageTime >= 1:
+        RageTime = RageTime - 1
+        if RageTime == 0 or Ded == 1:
+            DmgMul -= 0.7
+    if FirePistolTime >= 1:
+        FirePistolTime -= 1
+        minid = 5 + Lv*2
+        BHP -= minid
+        print(f"Enemy got burned for {minid} DMG, now he has {BHP} HP")
+        if FirePistolTime <= 0 or Ded == 1:
+            FirePistolTime = 0
        
         
         
@@ -211,17 +245,19 @@ while True:
         #Na dole pętla walki
         sleep(1.4)
         while True:
+            Timere(0)
             a = random.randint(1, 2)
-            Timere()
             print(f"\n {D}")
             AS()
             if BHP <= 0:
                 sleep(1)
                 print("Bandit got defeated!")
+                Timere(1)
                 vc = random.randint(1, 10)
                 Gold += vc
-                print(f"You got {vc} Gold\n")
-                Lev(50)
+                print(f"You got {vc} Gold")
+                Lev(60)
+                print("You got 60 Exp\n")
                 break
             if a == 1:
                 EnMoves(1, 1)
@@ -255,9 +291,8 @@ while True:
                 if BHP <= 0:
                     sleep(1)
                     print("Bandit got defeated!")
+                    Timere(1)
                     vc = random.randint(1, 10)
                     Gold += vc
                     print(f"You got {vc} Gold\n")
-                    Lev(50)
-                    break
-            sleep(1)
+                    Lev(60)
