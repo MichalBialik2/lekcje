@@ -17,10 +17,12 @@ Eff = 0
 Eff1 = None
 SD = 0
 DmgMul = 1
+Tura = 0
 #  ^ Start
 ParryTime = 0
 RageTime = 0
 FirePistolTime = 0
+FogCloudTime = 0
 # ^ SpecjalneEfekty
 
 if x == "Warrior":
@@ -41,7 +43,7 @@ if x == "Wizard":
     MaxM = 60
     D.append("Fire Pistol (-10M)")
     D.append("Mana Restore (+25M)")
-    D.append("Fog Cloud(-20M)")
+    D.append("Fog Cloud(-15M)")
     D.append("Weak Heal(-10M)")
 if x == "Tank":
     Klasa = "Tank"
@@ -61,7 +63,7 @@ if x == "Archer":
     MaxM = 40
     D.append("Shot")
     D.append("knife fencing")
-    D.append("Fog Cloud")
+    D.append("Fog Cloud(-15M)")
     D.append("Head Shot")
 # ^ Klasy 
 def Lev(t):
@@ -100,6 +102,8 @@ def Moves(m):
     global DmgMul
     global Lv
     global FirePistolTime
+    global Hp
+    global FogCloudTime
     if m == "Swing (+5M)": 
         M += 5
         if M > MaxM:
@@ -124,7 +128,6 @@ def Moves(m):
             for i in range(3):
                 a = 2+(1+(Lv/2))
                 b = 10+(1+(Lv/2))
-                print(f"{a} / {b}")
                 c = random.randint(2, 10)
                 c = c*(1+(Lv/3))
                 c = c*DmgMul
@@ -152,6 +155,30 @@ def Moves(m):
         else:
             print("You dont have enought mana to use this ability")
             AS()
+    if m == "Mana Restore (+25M)":
+        M += 25
+        if M > MaxM:
+             M = MaxM
+        print("You restored 25 Mana!")
+    if m == "Weak Heal(-10M)":
+        if M >= 10:
+            M -= 10
+            p = MaxHp * 0.10
+            Hp += p
+            if Hp >= MaxHp:
+                Hp = MaxHp
+            print(f"You healed yourself for {p} HP, now you have {Hp} HP!")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+    if m == "Fog Cloud(-15M)":
+        if M >= 15:
+            M -= 15
+            FogCloudTime = 2
+            print(f"You used Fog Cloud, you have 50% to dodge 2 next attacks ")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
         
         
         
@@ -170,7 +197,7 @@ def EnMoves(M, a):
             BD = 7*(1 + Lv/2) 
     
     
-    if ParryTime <= 1:
+    if ParryTime <= 1 or FogCloudTime >= 1:
         SpecEff(0)
             
 
@@ -185,6 +212,10 @@ def SpecEff(n):
     if ParryTime == 1:
         SD += BD*0.5
         BD = BD*0.5
+    if FogCloudTime >= 1:
+        p = random.randint(1, 10)
+        if p >= 6:
+            BD = 0
         
             
             
@@ -199,6 +230,7 @@ def Timere(Ded):
     global Eff1
     global DmgMul
     global FirePistolTime
+    global FogCloudTime
     #Parry
     if ParryTime <= 1 or Ded == 1:
         ParryTime = 0
@@ -216,7 +248,13 @@ def Timere(Ded):
         print(f"Enemy got burned for {minid} DMG, now he has {BHP} HP")
         if FirePistolTime <= 0 or Ded == 1:
             FirePistolTime = 0
-       
+    if FogCloudTime >= 1 or Ded == 1:
+        if BD == 0:
+            print("You dodged enemy attack!")
+        FogCloudTime -= 1
+
+
+
         
         
 
@@ -246,6 +284,8 @@ while True:
         sleep(1.4)
         while True:
             Timere(0)
+            Tura += 1
+            print(f"---------------------------- Turn {Tura} ---------------------------- ")
             a = random.randint(1, 2)
             print(f"\n {D}")
             AS()
@@ -258,6 +298,7 @@ while True:
                 print(f"You got {vc} Gold")
                 Lev(60)
                 print("You got 60 Exp\n")
+                Tura = 0
                 break
             if a == 1:
                 EnMoves(1, 1)
@@ -296,3 +337,5 @@ while True:
                     Gold += vc
                     print(f"You got {vc} Gold\n")
                     Lev(60)
+                    Tura = 0
+                    break
