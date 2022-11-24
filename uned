@@ -17,9 +17,14 @@ Eff = 0
 Eff1 = None
 SD = 0
 DmgMul = 1
+Tura = 0
 #  ^ Start
 ParryTime = 0
 RageTime = 0
+FirePistolTime = 0
+FogCloudTime = 0
+ShieldTime = 0
+ShieldedDMG = 0
 # ^ SpecjalneEfekty
 
 if x == "Warrior":
@@ -38,20 +43,20 @@ if x == "Wizard":
     MaxHp = 80
     M = 60
     MaxM = 60
-    D.append("Fire Pistol")
-    D.append("Earth Tremor")
-    D.append("Fog Cloud")
-    D.append("Weak Heal")
+    D.append("Fire Pistol (-10M)")
+    D.append("Mana Restore (+25M)")
+    D.append("Fog Cloud(-15M)")
+    D.append("Weak Heal(-10M)")
 if x == "Tank":
     Klasa = "Tank"
     Hp = 140
     MaxHp = 140
     M = 20
     MaxM = 20
-    D.append("Swing")
-    D.append("Shield")
-    D.append("Shield Bash")
-    D.append("Battle Heal")
+    D.append("Swing (+5M)")
+    D.append("Shield (+? M)")
+    D.append("Shield Bash (-15M)")
+    D.append("Battle Heal (-10M)")
 if x == "Archer":
     Klasa = "Archer"
     Hp = 90
@@ -60,7 +65,7 @@ if x == "Archer":
     MaxM = 40
     D.append("Shot")
     D.append("knife fencing")
-    D.append("Fog Cloud")
+    D.append("Fog Cloud(-15M)")
     D.append("Head Shot")
 # ^ Klasy 
 def Lev(t):
@@ -98,6 +103,11 @@ def Moves(m):
     global RageTime
     global DmgMul
     global Lv
+    global FirePistolTime
+    global Hp
+    global FogCloudTime
+    global ShieldTime
+    global ShieldedDMG
     if m == "Swing (+5M)": 
         M += 5
         if M > MaxM:
@@ -122,7 +132,6 @@ def Moves(m):
             for i in range(3):
                 a = 2+(1+(Lv/2))
                 b = 10+(1+(Lv/2))
-                print(f"{a} / {b}")
                 c = random.randint(2, 10)
                 c = c*(1+(Lv/3))
                 c = c*DmgMul
@@ -140,8 +149,66 @@ def Moves(m):
         else:
             print("You dont have enought mana to use this ability or u have Rage actived already")
             AS()    
-         
-        
+    if m == "Fire Pistol (-10M)":
+        if M >= 10:
+            M -= 10
+            Dmg = (10 + Lv*2)*DmgMul
+            BHP -= Dmg
+            FirePistolTime = 2
+            print(f"\n You dealt {Dmg} Damage and set enemy on fire for 2 rounds!  ( Bandit has {BHP} HP left)  \n")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+    if m == "Mana Restore (+25M)":
+        M += 25
+        if M > MaxM:
+             M = MaxM
+        print("You restored 25 Mana!")
+    if m == "Weak Heal(-10M)":
+        if M >= 10:
+            M -= 10
+            p = MaxHp * 0.15
+            Hp += p
+            if Hp >= MaxHp:
+                Hp = MaxHp
+            print(f"You healed yourself for {p} HP, now you have {Hp} HP!")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+    if m == "Fog Cloud(-15M)":
+        if M >= 15:
+            M -= 15
+            FogCloudTime = 2
+            print(f"You used Fog Cloud, you have 65% to dodge 2 next attacks ")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+    if m == "Shield (+? M)":
+            ShieldTime = 1
+            print("You used Shield, next enemy attack dmg deals 70% less dmg, also you get mana amount equal to half dmg blocked")
+    if m == "Battle Heal (-10M)":
+        if M >= 10:
+            M -= 10
+            p = 2 + MaxHp*0.05
+            Hp += p
+            if Hp >= MaxHp:
+                Hp = MaxHp
+            print(f"You healed yourself for {p} HP, now you have {Hp} HP!")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+    if m == "Shield Bash (-15M)":
+        if M >= 10:
+            M -= 10
+            d = ShieldedDMG * 0.7
+            BHP -= d + 5
+            ShieldedDMG = 0
+            print(f"You deal dmg equal to 70% of DMG blocked by your shield plus 5, you dealt {round(d, 1)  + 5} DMG, Shielded DMG reset")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+
+
         
         
 
@@ -158,7 +225,7 @@ def EnMoves(M, a):
             BD = 7*(1 + Lv/2) 
     
     
-    if ParryTime <= 1:
+    if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
         SpecEff(0)
             
 
@@ -169,14 +236,27 @@ def SpecEff(n):
     global Dmg
     global BD
     global ParryTime
+    global ShieldedDMG
     #Parry
     if ParryTime == 1:
-        SD = BD*0.5
+        SD += BD*0.5
         BD = BD*0.5
+    if FogCloudTime >= 1:
+        p = random.randint(1, 100)
+        if p >= 36:
+            BD = 0
+    if ShieldTime >= 1:
+        c = BD * 0.7
+        ShieldedDMG += c 
+        BD = BD *0.3
+        M += c*0.5
+        if M >= MaxM:
+            M = MaxM
+
         
             
             
-def Timere():
+def Timere(Ded):
     global SD
     global M
     global BHP
@@ -186,17 +266,37 @@ def Timere():
     global RageTime
     global Eff1
     global DmgMul
+    global FirePistolTime
+    global FogCloudTime
+    global ShieldTime
     #Parry
-    if ParryTime <= 1:
+    if ParryTime <= 1 or Ded == 1:
         ParryTime = 0
         SD = 0
         Eff1 = 0
         BD = BD
     if RageTime >= 1:
         RageTime = RageTime - 1
-        if RageTime == 0:
+        if RageTime == 0 or Ded == 1:
             DmgMul -= 0.7
-       
+    if FirePistolTime >= 1:
+        FirePistolTime -= 1
+        minid = 5 + Lv*2
+        BHP -= minid
+        print(f"Enemy got burned for {minid} DMG, now he has {BHP} HP")
+        if FirePistolTime <= 0 or Ded == 1:
+            FirePistolTime = 0
+    if FogCloudTime >= 1 or Ded == 1:
+        if BD == 0:
+            print("You dodged enemy attack!")
+        FogCloudTime -= 1
+    if ShieldTime >= 1 or Ded == 1:
+        ShieldTime -= 1
+        print(f"You have shielded yourself from an enemy attack, now you have {M} Mana and {Hp} HP")
+
+
+
+
         
         
 
@@ -225,18 +325,22 @@ while True:
         #Na dole pętla walki
         sleep(1.4)
         while True:
-            Timere()
+            Timere(0)
+            Tura += 1
+            print(f"---------------------------- Turn {Tura} ---------------------------- ")
             a = random.randint(1, 2)
             print(f"\n {D}")
             AS()
             if BHP <= 0:
                 sleep(1)
                 print("Bandit got defeated!")
+                Timere(1)
                 vc = random.randint(1, 10)
                 Gold += vc
                 print(f"You got {vc} Gold")
                 Lev(60)
                 print("You got 60 Exp\n")
+                Tura = 0
                 break
             if a == 1:
                 EnMoves(1, 1)
@@ -270,10 +374,10 @@ while True:
                 if BHP <= 0:
                     sleep(1)
                     print("Bandit got defeated!")
+                    Timere(1)
                     vc = random.randint(1, 10)
                     Gold += vc
                     print(f"You got {vc} Gold\n")
                     Lev(60)
-                    print("You got 60 Exp")
+                    Tura = 0
                     break
-            sleep(1)
