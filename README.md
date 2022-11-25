@@ -28,7 +28,6 @@ ShieldedDMG = 0
 DisarmTime = 0
 WeakTime = 0
 # ^ SpecjalneEfekty
-
 if x == "Warrior":
     Klasa = "Warrior"
     MaxHp = 120
@@ -117,6 +116,7 @@ def Moves(m):
         if M > MaxM:
             M = MaxM
         Dmg = (10 + Lv*2)*DmgMul
+        Dmg = round(Dmg, 1)
         BHP -= Dmg
         print(f"\n You dealt {Dmg} Damage!  ( Bandit has {BHP} HP left)  \n")
         
@@ -135,9 +135,10 @@ def Moves(m):
             M -= 10
             for i in range(3):
                 a = 2+(1+(Lv/2))
-                b = 10+(1+(Lv/2))
-                c = random.randint(2, 10)
+                b = 9+(1+(Lv/2))
+                c = random.randint(2, 9)
                 c = c*(1+(Lv/3))
+                c = round(c, 1)
                 c = c*DmgMul
                 print(f"\n You dealt {c} Damage!")
                 BHP -= c
@@ -157,6 +158,7 @@ def Moves(m):
         if M >= 10:
             M -= 10
             Dmg = (10 + Lv*2)*DmgMul
+            Dmg = round(Dmg, 1)
             BHP -= Dmg
             FirePistolTime = 2
             print(f"\n You dealt {Dmg} Damage and set enemy on fire for 2 rounds!  ( Bandit has {BHP} HP left)  \n")
@@ -189,7 +191,7 @@ def Moves(m):
             AS()
     if m == "Shield (+? M)":
             ShieldTime = 1
-            print("You used Shield, next enemy attack dmg deals 70% less dmg, also you get mana amount equal to half dmg blocked")
+            print("You used Shield, next enemy attack dmg deals 80% less dmg, also you get mana amount equal to half dmg blocked")
     if m == "Battle Heal (-10M)":
         if M >= 10:
             M -= 10
@@ -204,10 +206,10 @@ def Moves(m):
     if m == "Shield Bash (-15M)":
         if M >= 10:
             M -= 10
-            d = ShieldedDMG * 0.7
+            d = ShieldedDMG * 0.8
             BHP -= round(d, 1) + 5
             ShieldedDMG = 0
-            print(f"You deal dmg equal to 70% of DMG blocked by your shield plus 5, you dealt {round(d, 1)  + 5} DMG, Shielded DMG reset")
+            print(f"You deal dmg equal to 80% of DMG blocked by your shield plus 5, you dealt {round(d, 1)  + 5} DMG, Shielded DMG reset")
         else:
             print("You dont have enought mana to use this ability")
             AS()
@@ -216,6 +218,7 @@ def Moves(m):
         if M > MaxM:
             M = MaxM
         Dmg = (13 + Lv*2)*DmgMul
+        Dmg = round(Dmg, 1)
         BHP -= Dmg
         print(f"\n You dealt {Dmg} Damage!  ( Bandit has {BHP} HP left)  \n")
         
@@ -290,16 +293,19 @@ def SpecEff(n):
     #Parry
     if ParryTime == 1:
         SD += BD*0.5
+        SD = round(SD, 1)
         BD = BD*0.5
+        BD = round(BD, 1)
     if FogCloudTime >= 1:
         p = random.randint(1, 100)
         if p >= 36:
             BD = 0
     if ShieldTime >= 1:
-        c = BD * 0.7
+        c = BD * 0.8
         ShieldedDMG += c 
-        BD = BD *0.3
-        M += c*0.5
+        BD = BD *0.2
+        BD = round(BD, 1)
+        M += round(c*0.5, 1)
         if M >= MaxM:
             M = MaxM
     if DisarmTime >= 1:
@@ -390,14 +396,17 @@ while True:
         BHP = 60*(1 + Lv/3)
         print(f"\n You run across hostile bandit!({BHP} HP)")
         #Na dole pętla walki
-        sleep(1.4)
+        sleep(0.8)
         while True:
             Timere(0)
             Tura += 1
-            print(f"---------------------------- Turn {Tura} ---------------------------- ")
+            sleep(2.5)
+            print(f"---------------------------- Turn {Tura} ---------------------------- \n ")
             a = random.randint(1, 2)
-            print(f"\n {D}")
+            print(f" {D}")
             AS()
+            print("")
+            sleep(1)
             if BHP <= 0:
                 sleep(1)
                 print("Bandit got defeated!")
@@ -417,9 +426,8 @@ while True:
                 #zabranie golda
             if a == 1:
                 Hp -= BD
-                    
                 sleep(1)
-                print(f"Bandit used Stab, he dealt {BD} DMG, now you have {Hp} HP")
+                print(f"\n Bandit used Stab, he dealt {BD} DMG, now you have {Hp} HP")
                 if Hp <= 0:
                     sleep(1)
                     print("\n YOU DIED \n")
@@ -429,13 +437,14 @@ while True:
                 stel = random.randint(0, 2)
                 Gold -= stel
                 sleep(1)
-                print(f"Bandit used Thievery , he dealt {BD} DMG and stole {stel} Gold, now you have {Hp} HP \n")
+                print(f"\n Bandit used Thievery , he dealt {BD} DMG and stole {stel} Gold, now you have {Hp} HP \n")
                 if Hp <= 0:
                     sleep(1)
                     print("\n YOU DIED \n")
                     break
             if SD != 0:
                 BHP -= SD
+                sleep(1)
                 print(f"Bandit got damaged for {SD} damage")
                 SpecEff(Eff1)
                 if BHP <= 0:
