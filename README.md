@@ -27,7 +27,11 @@ ShieldTime = 0
 ShieldedDMG = 0
 DisarmTime = 0
 WeakTime = 0
+EnWeakTime = 0
+InhumanRegTime = 0
 # ^ SpecjalneEfekty
+#Bandit = ["Bandit", 60, 10, 1, 1, 2, 1, 2  ]
+#Drunken guy = ["Drunken Guy", 50, 8, 2, 1, 2, 1, 2]
 if x == "Warrior":
     Klasa = "Warrior"
     MaxHp = 120
@@ -44,8 +48,8 @@ if x == "Wizard":
     MaxHp = 80
     M = 60
     MaxM = 60
-    D.append("Fire Pistol (-10M)")
-    D.append("Mana Restore (+25M)")
+    D.append("Fire Pistol (-5M)")
+    D.append("Mana Restore (+30M)")
     D.append("Fog Cloud(-15M)")
     D.append("Weak Heal(-10M)")
 if x == "Tank":
@@ -68,6 +72,17 @@ if x == "Archer":
     D.append("Disarm (-10M)")
     D.append("Fog Cloud(-15M)")
     D.append("Lucky Shot(0M)")
+if x == "Happy Chaos":
+    Klasa = "Happy Chaos"
+    Hp = 150 + Lv*5
+    MaxHp = 150 + Lv*5
+    M = 70
+    MaxM = 70
+    D.append("Mana Restore (+30M)")
+    D.append("Finishing Kick! (0M)")
+    D.append("Inhuman Regeneration (-30M)")
+    D.append("Deus Ex Machina (-70M)")
+
 # ^ Klasy 
 def Lev(t):
     global Lv
@@ -77,7 +92,7 @@ def Lev(t):
     global Hp
     global M
     global MaxHp
-    Exp += t*(1 + Lv/4)
+    Exp += t
     while True:
         if Exp1 <= Exp:
             Lv += 1
@@ -111,11 +126,12 @@ def Moves(m):
     global ShieldedDMG
     global DisarmTime
     global WeakTime
+    global InhumanRegTime
     if m == "Swing (+5M)": 
         M += 5
         if M > MaxM:
             M = MaxM
-        Dmg = (10 + Lv*2)*DmgMul
+        Dmg = (11 + Lv*2)*DmgMul
         Dmg = round(Dmg, 1)
         BHP -= Dmg
         print(f"\n You dealt {Dmg} Damage!  ( Bandit has {BHP} HP left)  \n")
@@ -136,12 +152,13 @@ def Moves(m):
             for i in range(3):
                 a = 2+(1+(Lv/2))
                 b = 9+(1+(Lv/2))
-                c = random.randint(2, 9)
+                c = random.randint(4, 8)
                 c = c*(1+(Lv/3))
                 c = round(c, 1)
                 c = c*DmgMul
                 print(f"\n You dealt {c} Damage!")
                 BHP -= c
+            print(f"Enemy Has {BHP} HP now")
         else:
             print("You dont have enought mana to use this ability")
             AS()
@@ -154,9 +171,9 @@ def Moves(m):
         else:
             print("You dont have enought mana to use this ability or u have Rage actived already")
             AS()    
-    if m == "Fire Pistol (-10M)":
-        if M >= 10:
-            M -= 10
+    if m == "Fire Pistol (-5M)":
+        if M >= 5:
+            M -= 5
             Dmg = (10 + Lv*2)*DmgMul
             Dmg = round(Dmg, 1)
             BHP -= Dmg
@@ -165,11 +182,11 @@ def Moves(m):
         else:
             print("You dont have enought mana to use this ability")
             AS()
-    if m == "Mana Restore (+25M)":
-        M += 25
+    if m == "Mana Restore (+30M)":
+        M += 30
         if M > MaxM:
              M = MaxM
-        print("You restored 25 Mana!")
+        print("You restored 30 Mana!")
     if m == "Weak Heal(-10M)":
         if M >= 10:
             M -= 10
@@ -185,7 +202,7 @@ def Moves(m):
         if M >= 15:
             M -= 15
             FogCloudTime = 2
-            print(f"You used Fog Cloud, you have 65% to dodge 2 next attacks ")
+            print(f"You used Fog Cloud, you have 70% to dodge 2 next attacks ")
         else:
             print("You dont have enought mana to use this ability")
             AS()
@@ -195,7 +212,7 @@ def Moves(m):
     if m == "Battle Heal (-10M)":
         if M >= 10:
             M -= 10
-            p = 2 + MaxHp*0.05
+            p = 3 + MaxHp*0.1
             Hp += p
             if Hp >= MaxHp:
                 Hp = MaxHp
@@ -206,10 +223,10 @@ def Moves(m):
     if m == "Shield Bash (-15M)":
         if M >= 10:
             M -= 10
-            d = ShieldedDMG * 0.8
+            d = (ShieldedDMG * 0.9)*DmgMul
             BHP -= round(d, 1) + 5
             ShieldedDMG = 0
-            print(f"You deal dmg equal to 80% of DMG blocked by your shield plus 5, you dealt {round(d, 1)  + 5} DMG, Shielded DMG reset")
+            print(f"You deal dmg equal to 90% of DMG blocked by your shield plus 5, you dealt {round(d, 1)  + 5} DMG, Shielded DMG reset")
         else:
             print("You dont have enought mana to use this ability")
             AS()
@@ -225,7 +242,7 @@ def Moves(m):
     if m == "Disarm (-10M)":
         if M >= 10:
             M -= 10
-            d = 5*(1 + Lv/2)
+            d = (5*(1 + Lv/2))*DmgMul
             DisarmTime = 1
             WeakTime = 3
             BHP -= round(d, 1)
@@ -236,7 +253,7 @@ def Moves(m):
     if m == "Lucky Shot(0M)":
             Los = random.randint(1, 10)
             if Los <= 5:
-                Dmg = (9 + Lv*2)*DmgMul
+                Dmg = (10+ Lv*2)*DmgMul
                 BHP -= Dmg
                 print(f"\nYou used regular arrow, you dealt {Dmg} Damage!  ( Bandit has {BHP} HP left)  \n")
             if Los > 5 and Los < 8:
@@ -251,36 +268,127 @@ def Moves(m):
                 BHP -= round(Dmg, 1)
                 print(f"You used Fire Arrow, you dealt {Dmg} DMG and burned enemy, Enemy has {BHP} HP left ")
             if Los == 10:
-                Dmg = (25 + Lv*4)*DmgMul
+                Dmg = (35 + Lv*4)*DmgMul
                 M += 5
                 BHP -= round(Dmg, 1)
                 if M > MaxM:
                     M = MaxM
                 print(f"Jackpot! You hit headshot, dealt {Dmg} and regenerated 5 Mana, Enemy has {BHP} HP left")
-                
-                
-                
+    if m == "Inhuman Regeneration (-30M)":
+        if M >= 30:
+            M -= 30
+            Heal = Hp*0.2
+            InhumanRegTime = 3
+            if Hp >= MaxHp:
+                Hp = MaxHp
+            print(f"You healed yourself for {Heal} HP and due to your natural regeneration potential you heal 50% of dmg taken for 3 rounds, now you have {Hp} HP")
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+    if m == "Deus Ex Machina (-70M)":
+        if M >= 70:
+            M -= 70
+            print("You equip both of your pistols...")
+            sleep(1)
+            print("And you start shooting first volleys of shots.. ")
+            sleep(1)
+            f = 0
+            final = round(BHP*0.299, 2)
+            Hf = BHP
+            for i in range(15):
+                dmg = round(Hf*0.02, 1)
+                BHP -= dmg
+                print(f"Enemy got shot for {dmg} DMG")
+                sleep(0.6 - f)
+                f += 0.04
+            print("Then another 4 shots...")
+            sleep(2)
+            for i in range(4):
+                dmg = round(Hf*0.1, 0)
+                BHP -= dmg
+                print(f"Enemy got shot for {dmg} DMG")
+                sleep(0.4)
+            print("And finally. . .")
+            sleep(2)
+            BHP -= final
+            print(f"Enemy got shot for {final} DMG")
+            BHP = round(BHP, 3)
+            print(f"now enemy has {BHP} HP")
 
         
-        
+        else:
+            print("You dont have enought mana to use this ability")
+            AS()
+    if m == "Finishing Kick! (0M)":
+        BHP -= 1
+        print("You dealt 1 DMG to your enemy!")
+        if BHP <= 0:
+            sleep(1)
+            print(f"Finished in style, restored Mana and {round(5*(1+Lv/3), 0)} Hp!")
+            M = MaxM
+            Hp += round(5*(1+Lv/2), 0)
+            if Hp > MaxHp:
+                Hp = MaxHp
 
-def EnMoves(M, a):
-    global BD
-    global Hp
-    global Gold
+                
+                
+                
+def CombatSystem(Name, Exp, Gol, Type, Att1, Att2, Att3, Att4):
+    global Tura
     global BHP
-    global Eff
-    if M == 1:
-        if a == 1:
-            BD = random.randint(5 + (Lv*2), 10 + (Lv*2))
-        if a == 2:
-            BD = 7*(1 + Lv/2) 
-    
-    
-    if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
-        SpecEff(0)
-            
-
+    global SD
+    global Gold
+    global Hp
+    while True:
+            Timere(0)
+            Tura += 1
+            sleep(2.5)
+            print(f"---------------------------- Turn {Tura} ---------------------------- \n ")
+            a = random.randint(1, 4)
+            print(f" {D}")
+            AS()
+            print("")
+            sleep(1)
+            if BHP <= 0:
+                sleep(1)
+                print(f"{Name} got defeated!")
+                Timere(1)
+                vc = random.randint((Gol - 5), Gol)
+                Gold += vc
+                print(f"You got {vc} Gold")
+                Lev(Exp)
+                print(f"You got {Exp} Exp\n")
+                Tura = 0
+                break
+            if a == 1:
+                EnMoves(Type, Att1)
+                #Zwykle uderzenie
+            if a == 2:
+                EnMoves(Type, Att2)
+                #zabranie golda
+            if a == 3:
+                EnMoves(Type, Att3)
+            if a == 4:
+                EnMoves(Type, Att4)
+            if Hp <= 0:
+                    sleep(1)
+                    print("\n YOU DIED \n")
+                    break
+            if SD != 0:
+                BHP -= SD
+                sleep(1)
+                print(f"{Name} got damaged for {SD} damage")
+                SpecEff(Eff1)
+                if BHP <= 0:
+                    sleep(1)
+                    print(f"{Name} got defeated!")
+                    Timere(1)
+                    vc = random.randint((Gol - 5), Gol)
+                    Gold += vc
+                    print(f"You got {vc} Gold\n")
+                    Lev(Exp)
+                    Tura = 0
+                    break
 def SpecEff(n):
     global SD
     global M
@@ -290,6 +398,7 @@ def SpecEff(n):
     global ParryTime
     global ShieldedDMG
     global DisarmTime 
+    global DmgMul
     #Parry
     if ParryTime == 1:
         SD += BD*0.5
@@ -298,7 +407,7 @@ def SpecEff(n):
         BD = round(BD, 1)
     if FogCloudTime >= 1:
         p = random.randint(1, 100)
-        if p >= 36:
+        if p >= 31:
             BD = 0
     if ShieldTime >= 1:
         c = BD * 0.8
@@ -313,6 +422,52 @@ def SpecEff(n):
     if WeakTime >= 1:
         BD = round(BD*0.8, 1)
         
+    
+def EnMoves(M, a):
+    global BD
+    global Hp
+    global Gold
+    global BHP
+    global Eff
+    global EnWeakTime
+    global DmgMul
+    if M == 1:
+        if a == 1:
+            BD = random.randint(5 + (Lv*2), 10 + (Lv*2))
+            if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
+                SpecEff(0)
+            Hp -= BD
+            sleep(1)
+            print(f"\n Bandit used Stab, he dealt {BD} DMG, now you have {Hp} HP")
+        if a == 2:
+            BD = 7*(1 + Lv/2)
+            if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
+                SpecEff(0)
+            Hp -= BD
+            stel = 1
+            Gold -= stel
+            sleep(1)
+            print(f"\n Bandit used Thievery , he dealt {BD} DMG and stole {stel} Gold, now you have {Hp} HP \n")
+    if M == 2:
+        if a == 1:
+            BD = random.randint(6 + (Lv*2), 11 + (Lv*2))
+            if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
+                SpecEff(0)
+            Hp -= BD
+            sleep(1)
+            print(f"\n Drunken Guy used Stab, he dealt {BD} DMG, now you have {Hp} HP")
+        if a == 2:
+            BD = 6*(1 + Lv/2)
+            if EnWeakTime == 0:
+                DmgMul -= 0.2
+            EnWeakTime = 3
+            if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
+                SpecEff(0)
+            Hp -= BD
+            sleep(1)
+            print(f"\n Drunken Guy used Beer splash, he dealt {BD} DMG and made you weak for 2 Turns, now you have {Hp} HP \n")
+            
+
 
         
             
@@ -333,6 +488,8 @@ def Timere(Ded):
     global ShieldTime
     global DisarmTime
     global WeakTime
+    global EnWeakTime
+    global InhumanRegTime
     #Parry
     if ParryTime <= 1 or Ded == 1:
         ParryTime = 0
@@ -364,6 +521,17 @@ def Timere(Ded):
         WeakTime -= 1
         if Ded == 1:
             WeakTime = 0
+    if EnWeakTime >= 1:
+        EnWeakTime -= 1
+        if Ded == 1 or EnWeakTime == 0:
+            DmgMul += 0.2
+    if InhumanRegTime >= 1:
+        p = BD*0.5
+        InhumanRegTime -= 1
+        Hp += p
+        if Hp > MaxHp:
+            Hp = MaxHp
+        print(f"+{p}HP, now you have {Hp} HP")
     Hp = round(Hp, 1)
     BHP = round(BHP, 1)
 
@@ -390,70 +558,106 @@ def Stats():
 print(Stats())
 #funkcje ^
 while True:
-    c = random.randint(1, 1)
+    c = random.randint(1, 2)
     sleep(1.4)
     if c == 1:
         BHP = 60*(1 + Lv/3)
         print(f"\n You run across hostile bandit!({BHP} HP)")
         #Na dole pętla walki
         sleep(0.8)
+        CombatSystem("Bandit", 60, 10, 1, 1, 2, 1, 2, )
+        
+    if c == 2:
+        print("In the distance you see the inn, you decide to go there ")
+        sleep(1.4)
+        dc = int(input("You enter the inn, what you do? \n 1. [Stay for a night and regenerate 30% of your HP for price of 8 Gold] \n 2. [Hang around the inn] \n 3. [Leave] \n "))
         while True:
-            Timere(0)
-            Tura += 1
-            sleep(2.5)
-            print(f"---------------------------- Turn {Tura} ---------------------------- \n ")
-            a = random.randint(1, 2)
-            print(f" {D}")
-            AS()
-            print("")
-            sleep(1)
-            if BHP <= 0:
-                sleep(1)
-                print("Bandit got defeated!")
-                Timere(1)
-                vc = random.randint(1, 10)
-                Gold += vc
-                print(f"You got {vc} Gold")
-                Lev(60)
-                print("You got 60 Exp\n")
-                Tura = 0
-                break
-            if a == 1:
-                EnMoves(1, 1)
-                #Zwykle uderzenie
-            if a == 2:
-                EnMoves(1, 2)
-                #zabranie golda
-            if a == 1:
-                Hp -= BD
-                sleep(1)
-                print(f"\n Bandit used Stab, he dealt {BD} DMG, now you have {Hp} HP")
-                if Hp <= 0:
-                    sleep(1)
-                    print("\n YOU DIED \n")
+            if dc == 1:
+                if Gold >= 8:
+                    Gold -= 8
+                    HPRG = MaxHp*0.3
+                    Hp += HPRG
+                    if Hp > MaxHp:
+                        Hp = MaxHp
+                    if HPRG + Hp > MaxHp:
+                        HPRG = MaxHp - Hp
+                    print(f"\n You stayed for a night.\n +{HPRG} HP \n -8 Gold ")
                     break
-            if a == 2:
-                Hp -= BD
-                stel = random.randint(0, 2)
-                Gold -= stel
+                else:
+                    print("You dont have enought money, choose again")
+                    dc = input
+            if dc == 2:
+                print("")
+                print("1. You got robbed and lost 5 Gold \n 2.you got into a fight with a local drunken peasant \n 3. You got kicked out! \n 4. You play cards \n 5. You won bet and got 6 Gold \n 6. You come across generous mage ")
                 sleep(1)
-                print(f"\n Bandit used Thievery , he dealt {BD} DMG and stole {stel} Gold, now you have {Hp} HP \n")
-                if Hp <= 0:
-                    sleep(1)
-                    print("\n YOU DIED \n")
+                input("[Roll the Dice]")
+                print("Rolling...")
+                sleep(1.2)
+                g = random.randint(1, 6)
+                print(f"You rolled {g}")
+                if g == 1:
+                    go = round(5, 0)
+                    Gold -= go
+                    print(f"You got robbed! \n -{go} Gold")
                     break
-            if SD != 0:
-                BHP -= SD
-                sleep(1)
-                print(f"Bandit got damaged for {SD} damage")
-                SpecEff(Eff1)
-                if BHP <= 0:
-                    sleep(1)
-                    print("Bandit got defeated!")
-                    Timere(1)
-                    vc = random.randint(1, 10)
-                    Gold += vc
-                    print(f"You got {vc} Gold\n")
-                    Lev(60)
-                    Tura = 0
+                if g == 2:
+                    print("You got into fight with drunken guy ")
+                    BHP = 60*(1+(Lv/3))
+                    BHP = round(BHP, 0)
+                    CombatSystem("Drunken Guy", 50, 8, 2, 1, 2, 1, 2)
+                if g == 3:
+                    print("\n You got kicked out!")
                     break
+                if g == 4:
+                    print("")
+                    print("You play cards with rich stranger both you and stranger roll 3 dices, person who gets more points overall wins!")
+                    sleep(1)
+                    while True:
+                        if Gold <= 0:
+                            print("You dont have money")
+                            break
+                        Reward = input("Choose amount of money u want to bet ")
+                        if int(Reward) <= Gold:
+                            npc = 0
+                            player = 0
+                            sleep(1)
+                            for i in range(3):
+                                print("Stranger rolls the dice")
+                                d = random.randint(1, 6)
+                                npc += d
+                                sleep(1)
+                                print(f"He rolled {d}")
+                                input("[Roll the Dice]")
+                                print("Rolling...")
+                                d = random.randint(1, 6)
+                                player += d
+                                sleep(1)
+                                print(f"You rolled {d}")
+                                sleep(1)
+                            if npc > player:
+                                print(f"You lost bet \n -{Reward} Gold")
+                                Gold -= int(Reward)
+                                break
+                            if npc == player:
+                                print("Tie! You both dont lose or win anything")
+                                break
+                            if player > npc:
+                                print(f"You won! \n +{Reward} Gold")
+                                Gold += int(Reward)
+                                break
+                        else:
+                            print("You dont have enought money")
+                if g == 5:
+                    print("You won bet! \n +6 Gold")
+                    Gold += 6
+                    break
+                if g == 6:
+                    print("You meet ancient vampiric wizard... ")
+                    sleep(1)
+                    print("He tells you important thing...")
+                    sleep(1)
+                    print("Zabij sie")
+            print("You leave inn")
+            sleep(1.3)
+            break
+                    
