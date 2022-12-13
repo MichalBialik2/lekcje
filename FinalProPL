@@ -1,571 +1,580 @@
 import random
 from time import sleep
-x = input("Wybierz Klase: \n Wojownik \n Mag \n Tank \n łucznik \n ").lower()
-Lv = 0
-MaxHp = None
-Hp = None
-M = None
-MaxM = None
-D = []
-Gold = 5
-BHP = None
-BD = None
-Dmg = None
-Exp = 0
-Exp1 = 100
-Eff = 0
-Eff1 = None
-SD = 0
-DmgMul = 1
-Tura = 0
-#  ^ Start
-ParryTime = 0
-RageTime = 0
-FirePistolTime = 0
-FogCloudTime = 0
-ShieldTime = 0
-ShieldedDMG = 0
-DisarmTime = 0
-WeakTime = 0
-EnWeakTime = 0
-InhumanRegTime = 0
-WizRage = 0
-WizMana = 0
-# ^ SpecjalneEfekty
-#Bandit = ["Bandit", 60, 10, 1, 1, 2, 1, 2  ]
-#Drunken guy = ["Drunken Guy", 50, 8, 2, 1, 2, 1, 2]
-if x == "wojownik":
-    Klasa = "Wojownik"
-    MaxHp = 120
-    Hp = 120
-    M = 25
-    MaxM = 25
-    D.append("Uderzenie (+5M)")
-    D.append("Riposta (-5M)")
-    D.append("Combo (-10M)")
-    D.append("Szał (-10M)")
-if x == "mag":
-    Klasa = "Mag"
-    Hp = 80
-    MaxHp = 80
-    M = 60
-    MaxM = 60
-    D.append("Ognista Kula (-5M)")
-    D.append("Odnowienie many (+30M)")
-    D.append("Zasłona Dymna (-15M)")
-    D.append("Słabe uleczenie (-10M)")
-if x == "tank":
-    Klasa = "Tank"
-    Hp = 140
-    MaxHp = 140
-    M = 20
-    MaxM = 20
-    D.append("Uderzenie (+5M)")
-    D.append("Tarcza (+? M)")
-    D.append("Uderzenie Tarczą (-15M)")
-    D.append("Szybkie uleczenie (-10M)")
-if x == "łucznik":
-    Klasa = "Łucznik"
-    Hp = 90
-    MaxHp = 90
-    M = 40
-    MaxM = 40
-    D.append("Strzał (+5M)")
-    D.append("Rozbrojenie (-10M)")
-    D.append("Zasłona Dymna (-15M)")
-    D.append("Strzał Losu (0M)")
+while True:
+    x = input("Wybierz Klase: \n Wojownik \n Mag \n Tank \n łucznik \n ").lower()
+    Lv = 0
+    MaxHp = None
+    Hp = None
+    M = None
+    MaxM = None
+    D = []
+    Gold = 5
+    BHP = None
+    BD = None
+    Dmg = None
+    Exp = 0
+    Exp1 = 100
+    Eff = 0
+    Eff1 = None
+    SD = 0
+    DmgMul = 1
+    Tura = 0
+    #  ^ Start
+    ParryTime = 0
+    RageTime = 0
+    FirePistolTime = 0
+    FogCloudTime = 0
+    ShieldTime = 0
+    ShieldedDMG = 0
+    DisarmTime = 0
+    WeakTime = 0
+    EnWeakTime = 0
+    InhumanRegTime = 0
+    WizRage = 0
+    WizMana = 0
+    # ^ SpecjalneEfekty
+    #Bandit = ["Bandit", 60, 10, 1, 1, 2, 1, 2  ]
+    #Drunken guy = ["Drunken Guy", 50, 8, 2, 1, 2, 1, 2]
+    if x == "wojownik":
+        Klasa = "Wojownik"
+        MaxHp = 120
+        Hp = 120
+        M = 25
+        MaxM = 25
+        D.append("Uderzenie (+5M)")
+        D.append("Riposta (-5M)")
+        D.append("Combo (-10M)")
+        D.append("Szał (-10M)")
+    if x == "mag":
+        Klasa = "Mag"
+        Hp = 80
+        MaxHp = 80
+        M = 60
+        MaxM = 60
+        D.append("Ognista Kula (-5M)")
+        D.append("Odnowienie many (+30M)")
+        D.append("Zasłona Dymna (-15M)")
+        D.append("Słabe uleczenie (-10M)")
+    if x == "tank":
+        Klasa = "Tank"
+        Hp = 140
+        MaxHp = 140
+        M = 20
+        MaxM = 20
+        D.append("Uderzenie (+5M)")
+        D.append("Tarcza (+? M)")
+        D.append("Uderzenie tarczą (-15M)")
+        D.append("Szybkie uleczenie (-10M)")
+    if x == "łucznik":
+        Klasa = "Łucznik"
+        Hp = 90
+        MaxHp = 90
+        M = 40
+        MaxM = 40
+        D.append("Strzał (+5M)")
+        D.append("Rozbrojenie (-10M)")
+        D.append("Zasłona Dymna (-15M)")
+        D.append("Strzał Losu (0M)")
 
-# ^ Klasy 
-def Lev(t):
-    global Lv, Exp, Exp1, MaxM, Hp, M, MaxHp
-    Exp += t
-    while True:
-        if Exp1 <= Exp:
-            Lv += 1
-            Exp -= Exp1
-            print(f"Osiągnołeś {Lv} Lv \n")
-            Exp1 += 30
-            MaxHp += 10
-            Hp += 10
-            MaxM += 5
+    # ^ Klasy 
+    def Lev(t):
+        global Lv, Exp, Exp1, MaxM, Hp, M, MaxHp
+        Exp += t
+        while True:
+            if Exp1 <= Exp:
+                Lv += 1
+                Exp -= Exp1
+                print(f"Osiągnołeś {Lv} Lv \n")
+                Exp1 += 30
+                MaxHp += 10
+                Hp += 10
+                MaxM += 5
+                M += 5
+            else:
+                break
+            
+        
+        
+        
+    def Moves(m):
+        global M, BHP, Dmg, Eff, Eff1, ParryTime, RageTime, DmgMul, Lv, FirePistolTime, Hp, FogCloudTime, ShieldTime, ShieldedDMG, DisarmTime, WeakTime, InhumanRegTime
+        if m == "Uderzenie (+5M)": 
             M += 5
-        else:
-            break
-        
-    
-    
-    
-def Moves(m):
-    global M, BHP, Dmg, Eff, Eff1, ParryTime, RageTime, DmgMul, Lv, FirePistolTime, Hp, FogCloudTime, ShieldTime, ShieldedDMG, DisarmTime, WeakTime, InhumanRegTime
-    if m == "Uderzenie (+5M)": 
-        M += 5
-        if M > MaxM:
-            M = MaxM
-        Dmg = (11 + Lv*2)*DmgMul
-        Dmg = round(Dmg, 1)
-        BHP -= Dmg
-        print(f"\n Zadałeś {Dmg} Obrażeń! (przeciwnik ma {BHP} HP)  \n")
-        
-    if m == "Riposta (-5M)":
-        if M >= 5:
-            M -= 5
-            Eff = 1
-            Eff1 = 1
-            ParryTime = 1
-            print("\n Użyłeś Riposty, następny atak przeciwnika zadaje 50% mniej obrażeń, odbijasz 50% pierwotnych obrażeń\n")
-        else:
-            print("Nie masz wystarczająco many by tego użyć")
-            AS()
-    if m == "Combo (-10M)":
-        if M >= 10:
-            M -= 10
-            for i in range(3):
-                a = 2+(1+(Lv/2))
-                b = 9+(1+(Lv/2))
-                c = random.randint(4, 8)
-                c = c*(1+(Lv/3))
-                c = round(c, 1)
-                c = c*DmgMul
-                print(f"\n Zadałeś {c} obrażeń!")
-                BHP -= c
-            print(f"przeciwnik ma {BHP} HP")
-        else:
-            print("Nie masz wystarczająco many by tego użyć")
-            AS()
-    if m == "Szał (-10M)":
-        if M >= 10 and RageTime == 0:
-            M -= 10
-            RageTime += 3
-            DmgMul += 0.7
-            print("\n Użyłeś Szału, twoje obrażenia są o 70% większe przez 2 tury")
-        else:
-            print("Nie masz wystarczająco many by tego użyć lub masz już uaktywniony Szał")
-            AS()    
-    if m == "Ognista Kula (-5M)":
-        if M >= 5:
-            M -= 5
-            Dmg = (10 + Lv*2)*DmgMul
+            if M > MaxM:
+                M = MaxM
+            Dmg = (11 + Lv*2)*DmgMul
             Dmg = round(Dmg, 1)
             BHP -= Dmg
-            FirePistolTime = 2
-            print(f"\n Zadałeś {Dmg} obrażeń i podpaliłeś przeciwnika na dwie tury  (przeciwnik ma {BHP} HP)  \n")
-        else:
-            print("Nie masz wystarczająco many by tego użyć")
-            AS()
-    if m == "Odnowienie many (+30M)":
-        M += 30
-        if M > MaxM:
-            dg = 30 - (MaxM - M)
-            M = MaxM
-        print(f"Odnowiłeś {dg} Many")
-    if m == "Słabe uleczenie(-10M)":
-        if M >= 10:
-            M -= 10
-            p = MaxHp * 0.15
-            Hp += p
-            if Hp >= MaxHp:
-                Hp = MaxHp
-            print(f"Wyleczyłeś {p} HP, teraz masz {Hp} HP!")
-        else:
-            print("Nie masz wystarczająco many by tego użyć")
-            AS()
-    if m == "Zasłona Dymna (-15M)":
-        if M >= 15:
-            M -= 15
-            FogCloudTime = 2
-            print(f"Użyłeś Zasłony dymnej, teraz nasz 70% na uniknięcie 2 następnych ataków ")
-        else:
-            print("Nie masz wystarczająco many by tego użyć")
-            AS()
-    if m == "Tarcza (+? M)":
-            ShieldTime = 1
-            print("Użyłeś Tarczy, następny wrogi atak zadaje 80% mniej obrażeń, otrzymujesz też mane w wysokości połowy osłoniętych obrażeń")
-    if m == "Szybkie uleczenie(-10M)":
-        if M >= 10:
-            M -= 10
-            p = 3 + MaxHp*0.1
-            Hp += p
-            if Hp >= MaxHp:
-                Hp = MaxHp
-            print(f"Wyleczyłeś {p} HP, teraz masz {Hp} HP!")
-        else:
-            print("Nie masz wystarczająco many by tego użyć")
-            AS()
-    if m == "Uderzenie tarczą (-15M)":
-        if M >= 10:
-            M -= 10
-            d = (ShieldedDMG * 0.9)*DmgMul
-            BHP -= round(d, 1) + 5
-            ShieldedDMG = 0
-            print(f"Zadajesz obrażenia równe 90% obrażeń zablokowanych przez tarcze plus 5, zadałeś {round(d, 1)  + 5} obrażeń, Zablokowane obrażenie zresetowane")
-        else:
-            print("Nie masz wystarczająco many by tego użyć")
-            AS()
-    if m == "Strzał (+5M)":
-        M += 5
-        if M > MaxM:
-            M = MaxM
-        Dmg = (13 + Lv*2)*DmgMul
-        Dmg = round(Dmg, 1)
-        BHP -= Dmg
-        print(f"\n Zadałeś {Dmg} Obrażeń! (przeciwnik ma {BHP} HP)  \n")
-        
-    if m == "Rozbrojenie (-10M)":
-        if M >= 10:
-            M -= 10
-            d = (5*(1 + Lv/2))*DmgMul
-            DisarmTime = 1
-            WeakTime = 3
-            BHP -= round(d, 1)
-            print(f"Rozbroiłeś wroga, zadałeś {round(d, 1)}, Ogłuszyłeś go i nadałeś mu efekt [Słabość] na 2 tury")
-        else:
-            print("Nie masz wystarczająco many by tego użyć")
-            AS()
-    if m == "Strzał Losu (0M)":
-            Los = random.randint(1, 10)
-            if Los <= 5:
-                Dmg = (10+ Lv*2)*DmgMul
-                BHP -= Dmg
-                print(f"\n Użyłeś zwykłej strzały, zadałeś {Dmg} obrażeń!  (przeciwnik ma {BHP} HP)  \n")
-            if Los > 5 and Los < 8:
-                M += 10
-                if M > MaxM:
-                    M = MaxM
-                DisarmTime = 1
-                print(f"\n Użyłeś strzały pełnej energii, ogłuszasz przeciwnika na 1 turę i regenerujesz 10 Many")
-            if Los > 7 and Los < 10:
-                FirePistolTime = 3
+            print(f"\n Zadałeś {Dmg} Obrażeń! (przeciwnik ma {BHP} HP)  \n")
+            
+        if m == "Riposta (-5M)":
+            if M >= 5:
+                M -= 5
+                Eff = 1
+                Eff1 = 1
+                ParryTime = 1
+                print("\n Użyłeś Riposty, następny atak przeciwnika zadaje 50% mniej obrażeń, odbijasz 50% pierwotnych obrażeń\n")
+            else:
+                print("Nie masz wystarczająco many by tego użyć")
+                AS()
+        if m == "Combo (-10M)":
+            if M >= 10:
+                M -= 10
+                for i in range(3):
+                    a = 2+(1+(Lv/2))
+                    b = 9+(1+(Lv/2))
+                    c = random.randint(4, 8)
+                    c = c*(1+(Lv/3))
+                    c = round(c, 1)
+                    c = c*DmgMul
+                    print(f"\n Zadałeś {c} obrażeń!")
+                    BHP -= c
+                print(f"przeciwnik ma {BHP} HP")
+            else:
+                print("Nie masz wystarczająco many by tego użyć")
+                AS()
+        if m == "Szał (-10M)":
+            if M >= 10 and RageTime == 0:
+                M -= 10
+                RageTime += 3
+                DmgMul += 0.7
+                print("\n Użyłeś Szału, twoje obrażenia są o 70% większe przez 2 tury")
+            else:
+                print("Nie masz wystarczająco many by tego użyć lub masz już uaktywniony Szał")
+                AS()    
+        if m == "Ognista Kula (-5M)":
+            if M >= 5:
+                M -= 5
                 Dmg = (10 + Lv*2)*DmgMul
-                BHP -= round(Dmg, 1)
-                print(f"Użyłeś ognistej strzały i podpaliłeś przeciwnika na dwie tury, (przeciwnik ma {BHP} HP) ")
-            if Los == 10:
-                Dmg = (35 + Lv*4)*DmgMul
-                M += 5
-                BHP -= round(Dmg, 1)
-                if M > MaxM:
-                    M = MaxM
-                print(f"Strzeliłeś prosto w głowe! Zadałeś {Dmg} and i odnowiłeś 5 Many, Przeciwnik ma {BHP} HP")
+                Dmg = round(Dmg, 1)
+                BHP -= Dmg
+                FirePistolTime = 2
+                print(f"\n Zadałeś {Dmg} obrażeń i podpaliłeś przeciwnika na dwie tury  (przeciwnik ma {BHP} HP)  \n")
+            else:
+                print("Nie masz wystarczająco many by tego użyć")
+                AS()
+        if m == "Odnowienie many (+30M)":
+            M += 30
+            dg = 30
+            if M > MaxM:
+                dg = 30 - (MaxM - M)
+                M = MaxM
+            print(f"Odnowiłeś {dg} Many")
+        if m == "Słabe uleczenie (-10M)":
+            if M >= 10:
+                M -= 10
+                p = round(MaxHp * 0.15, 0) + 2
+                Hp += p
+                if Hp >= MaxHp:
+                    Hp = MaxHp
+                print(f"Wyleczyłeś {p} HP, teraz masz {Hp} HP!")
+            else:
+                print("Nie masz wystarczająco many by tego użyć")
+                AS()
+        if m == "Zasłona Dymna (-15M)":
+            if M >= 15:
+                M -= 15
+                FogCloudTime = 2
+                print(f"Użyłeś Zasłony dymnej, teraz nasz 70% na uniknięcie 2 następnych ataków ")
+            else:
+                print("Nie masz wystarczająco many by tego użyć")
+                AS()
+        if m == "Tarcza (+? M)":
+                ShieldTime = 1
+                print("Użyłeś Tarczy, następny wrogi atak zadaje 80% mniej obrażeń, otrzymujesz też mane w wysokości połowy osłoniętych obrażeń")
+        if m == "Szybkie uleczenie(-10M)":
+            if M >= 10:
+                M -= 10
+                p = 3 + round(MaxHp*0.12, 0)
+                Hp += p
+                if Hp >= MaxHp:
+                    Hp = MaxHp
+                print(f"Wyleczyłeś {p} HP, teraz masz {Hp} HP!")
+            else:
+                print("Nie masz wystarczająco many by tego użyć")
+                AS()
+        if m == "Uderzenie tarczą (-15M)":
+            if M >= 10:
+                M -= 10
+                d = (ShieldedDMG * 0.9)*DmgMul
+                BHP -= round(d, 1) + 5
+                ShieldedDMG = 0
+                print(f"Zadajesz obrażenia równe 90% obrażeń zablokowanych przez tarcze plus 5, zadałeś {round(d, 1)  + 5} obrażeń, Zablokowane obrażenie zresetowane")
+            else:
+                print("Nie masz wystarczająco many by tego użyć")
+                AS()
+        if m == "Strzał (+5M)":
+            M += 5
+            if M > MaxM:
+                M = MaxM
+            Dmg = (13 + Lv*2)*DmgMul
+            Dmg = round(Dmg, 1)
+            BHP -= Dmg
+            print(f"\n Zadałeś {Dmg} Obrażeń! (przeciwnik ma {BHP} HP)  \n")
+            
+        if m == "Rozbrojenie (-10M)":
+            if M >= 10:
+                M -= 10
+                d = (5*(1 + Lv/2))*DmgMul
+                DisarmTime = 1
+                WeakTime = 3
+                BHP -= round(d, 1)
+                print(f"Rozbroiłeś wroga, zadałeś {round(d, 1)}, Ogłuszyłeś go i nadałeś mu efekt [Słabość] na 2 tury")
+            else:
+                print("Nie masz wystarczająco many by tego użyć")
+                AS()
+        if m == "Strzał Losu (0M)":
+                Los = random.randint(1, 10)
+                if Los <= 5:
+                    Dmg = (10+ Lv*2)*DmgMul
+                    BHP -= Dmg
+                    print(f"\n Użyłeś zwykłej strzały, zadałeś {Dmg} obrażeń!  (przeciwnik ma {BHP} HP)  \n")
+                if Los > 5 and Los < 8:
+                    M += 10
+                    if M > MaxM:
+                        M = MaxM
+                    DisarmTime = 1
+                    print(f"\n Użyłeś strzały pełnej energii, ogłuszasz przeciwnika na 1 turę i regenerujesz 10 Many")
+                if Los > 7 and Los < 10:
+                    FirePistolTime = 3
+                    Dmg = (10 + Lv*2)*DmgMul
+                    BHP -= round(Dmg, 1)
+                    print(f"Użyłeś ognistej strzały i podpaliłeś przeciwnika na dwie tury, (przeciwnik ma {BHP} HP) ")
+                if Los == 10:
+                    Dmg = (35 + Lv*4)*DmgMul
+                    M += 5
+                    BHP -= round(Dmg, 1)
+                    if M > MaxM:
+                        M = MaxM
+                    print(f"Strzeliłeś prosto w głowe! Zadałeś {Dmg} and i odnowiłeś 5 Many, Przeciwnik ma {BHP} HP")
 
-                
-                
-                
-def CombatSystem(Name, Exp, Gol, Type, Att1, Att2, Att3, Att4):
-    global Tura, BHP, SD, Gold, Hp
-    while True:
-            Timere(0)
-            Tura += 1
-            sleep(2.5)
-            print(f"---------------------------- Tura {Tura} ---------------------------- \n ")
-            a = random.randint(1, 4)
-            print(f" {D}")
-            AS()
-            print("")
-            sleep(1)
-            if BHP <= 0:
+                    
+                    
+                    
+    def CombatSystem(Name, Exp, Gol, Type, Att1, Att2, Att3, Att4):
+        global Tura, BHP, SD, Gold, Hp
+        while True:
+                Timere(0)
+                Tura += 1
+                sleep(2.5)
+                print(f"---------------------------- Tura {Tura} ---------------------------- \n ")
+                a = random.randint(1, 4)
+                print(f" {D}")
+                AS()
+                print("")
                 sleep(1)
-                print(f"{Name} został pokonany")
-                Timere(1)
-                vc = random.randint((Gol - 5), Gol)
-                Gold += vc
-                print(f"Otrzymałeś {vc} złota")
-                Lev(Exp)
-                print(f"Otrzymałeś {Exp} Exp\n")
-                Tura = 0
-                break
-            if a == 1:
-                EnMoves(Type, Att1)
-                #Zwykle uderzenie
-            elif a == 2:
-                EnMoves(Type, Att2)
-                #zabranie golda
-            elif a == 3:
-                EnMoves(Type, Att3)
-            elif a == 4:
-                EnMoves(Type, Att4)
-            if Hp <= 0:
-                    sleep(1)
-                    print("\n YOU DIED \n")
-                    break
-            if SD != 0:
-                BHP -= SD
-                sleep(1)
-                print(f"{Name} dostał {SD} obrażeń")
-                SpecEff(Eff1)
                 if BHP <= 0:
                     sleep(1)
                     print(f"{Name} został pokonany")
                     Timere(1)
                     vc = random.randint((Gol - 5), Gol)
                     Gold += vc
-                    print(f"Otrzymałeś {vc} złota\n")
+                    print(f"Otrzymałeś {vc} złota")
                     Lev(Exp)
+                    print(f"Otrzymałeś {Exp} Exp\n")
                     Tura = 0
                     break
-def SpecEff(n):
-    global SD, M, BHP, Dmg, BD, ParryTime, ShieldedDMG, DisarmTime, DmgMul
-    #Parry
-    if ParryTime == 1:
-        SD += BD*0.5
-        SD = round(SD, 1)
-        BD = BD*0.5
-        BD = round(BD, 1)
-    if FogCloudTime >= 1:
-        p = random.randint(1, 100)
-        if p >= 31:
+                if a == 1:
+                    EnMoves(Type, Att1)
+                    #Zwykle uderzenie
+                elif a == 2:
+                    EnMoves(Type, Att2)
+                    #zabranie golda
+                elif a == 3:
+                    EnMoves(Type, Att3)
+                elif a == 4:
+                    EnMoves(Type, Att4)
+                if Hp <= 0:
+                        sleep(1)
+                        print("\n YOU DIED \n")
+                        return 
+                if SD != 0:
+                    BHP -= SD
+                    sleep(1)
+                    print(f"{Name} dostał {SD} obrażeń")
+                    SpecEff(Eff1)
+                    if BHP <= 0:
+                        sleep(1)
+                        print(f"{Name} został pokonany")
+                        Timere(1)
+                        vc = random.randint((Gol - 5), Gol)
+                        Gold += vc
+                        print(f"Otrzymałeś {vc} złota\n")
+                        Lev(Exp)
+                        Tura = 0
+                        break
+    def SpecEff(n):
+        global SD, M, BHP, Dmg, BD, ParryTime, ShieldedDMG, DisarmTime, DmgMul
+        #Parry
+        if ParryTime == 1:
+            SD += BD*0.5
+            SD = round(SD, 1)
+            BD = BD*0.5
+            BD = round(BD, 1)
+        if FogCloudTime >= 1:
+            p = random.randint(1, 100)
+            if p >= 31:
+                BD = 0
+        if ShieldTime >= 1:
+            c = BD * 0.8
+            ShieldedDMG += c 
+            BD = BD *0.2
+            BD = round(BD, 1)
+            M += round(c*0.5, 1)
+            if M >= MaxM:
+                M = MaxM
+        if DisarmTime >= 1:
             BD = 0
-    if ShieldTime >= 1:
-        c = BD * 0.8
-        ShieldedDMG += c 
-        BD = BD *0.2
-        BD = round(BD, 1)
-        M += round(c*0.5, 1)
-        if M >= MaxM:
-            M = MaxM
-    if DisarmTime >= 1:
-        BD = 0
-    if WeakTime >= 1:
-        BD = round(BD*0.8, 1)
-        
-    
-def EnMoves(M, a):
-    global BD, Hp, Gold, BHP, Eff, EnWeakTime, DmgMul
-    if M == 1:
-        if a == 1:
-            BD = random.randint(5 + (Lv*2), 10 + (Lv*2))
-            if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
-                SpecEff(0)
-            Hp -= BD
-            sleep(1)
-            print(f"\n Bandyta użył pchnięcia, zadał {BD} Obrażeń, teraz masz {Hp} HP")
-        if a == 2:
-            BD = 7*(1 + Lv/2)
-            if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
-                SpecEff(0)
-            Hp -= BD
-            stel = 1
-            Gold -= stel
-            sleep(1)
-            print(f"\n Bandyta użył Złodziejstwa , zadał {BD} obrażeń i ukradł {stel} złota, teraz masz {Hp} HP \n")
-    if M == 2:
-        if a == 1:
-            BD = random.randint(6 + (Lv*2), 11 + (Lv*2))
-            if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
-                SpecEff(0)
-            Hp -= BD
-            sleep(1)
-            print(f"\n Pijak użył pchnięcia i zadał {BD} obrażeń, teraz masz {Hp} HP")
-        if a == 2:
-            BD = 6*(1 + Lv/2)
-            if EnWeakTime == 0:
-                DmgMul -= 0.2
-            EnWeakTime = 3
-            if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
-                SpecEff(0)
-            Hp -= BD
-            sleep(1)
-            print(f"\n pijak użył rozbicia butelki i zadał {BD} obrażeń i nałożył na ciebie efekt [Słabość], teraz masz {Hp} HP \n")
+        if WeakTime >= 1:
+            BD = round(BD*0.8, 1)
             
-
-
         
-            
-            
-def Timere(Ded):
-    global Hp, SD, M, BHP, Dmg, BD, ParryTime, RageTime, Eff1, DmgMul, FirePistolTime, FogCloudTime, ShieldedDMG, ShieldTime, DisarmTime, WeakTime, EnWeakTime, InhumanRegTime, WizMana, WizRage
-    #Parry
-    if ParryTime <= 1 or Ded == 1:
-        ParryTime = 0
-        SD = 0
-        Eff1 = 0
-        BD = BD
-    if RageTime >= 1:
-        RageTime = RageTime - 1
-        if RageTime == 0 or Ded == 1:
-            DmgMul -= 0.7
-    if FirePistolTime >= 1:
-        FirePistolTime -= 1
-        minid = 5 + Lv*2
-        BHP -= minid
-        print(f"Przeciwnik został dotknięty ogniem za {minid} obrażeń, teraz ma {BHP} HP")
-        if FirePistolTime <= 0 or Ded == 1:
-            FirePistolTime = 0
-    if FogCloudTime >= 1 or Ded == 1:
-        if BD == 0:
-            print("Uniknąłeś ataku przeciwnika!")
-        FogCloudTime -= 1
-    if ShieldTime >= 1:
-        ShieldTime -= 1
-        print(f"Osłoniłeś się przed atakiem przeciwnika, teraz masz {M} Many i {Hp} HP")
-    if DisarmTime >= 1:
-        DisarmTime = 0
-        print("Przeciwnik jest ogłuszony")
-    if WeakTime >= 1:
-        WeakTime -= 1
-        if Ded == 1:
-            WeakTime = 0
-    if EnWeakTime >= 1:
-        EnWeakTime -= 1
-        if Ded == 1 or EnWeakTime == 0:
-            DmgMul += 0.2
-    if InhumanRegTime >= 1:
-        p = BD*0.5
-        InhumanRegTime -= 1
-        Hp += p
-        if Hp > MaxHp:
-            Hp = MaxHp
-        print(f"+{p}HP, teraz masz {Hp} HP")
-    if WizRage == 1:
-        DmgMul += 0.4
-        WizRage = 2
-    if WizMana ==  1:
-        M = MaxM
-        if Ded == 1:
-            WizMana = 0
-    if Ded == 1 and WizRage >= 2:
-        DmgMul -= 0.4
-        WizRage = 0
-    Hp = round(Hp, 1)
-    BHP = round(BHP, 1)
-
-
-
-
-        
-        
-
-
-def AS():
-    L = int(input("\n Wybierz umiejętność od 1 do 4 "))
-    L1 = D[(L - 1)]
-    sleep(0.3)
-    Moves(L1)
-def Stats():
-    print("\n ", Klasa, "Statystyki")
-    print("       Lv ", Lv)
-    print("       HP ", Hp,"/",MaxHp)
-    print("       Mana ", M,"/",MaxM)
-    print("       Twoja Talia", D)
-    print("       Złoto" , Gold)
-    print("       Exp", Exp,"/",Exp1)
-print(Stats())
-#funkcje ^
-while True:
-    c = random.randint(1, 2)
-    sleep(1.4)
-    if c == 1:
-        BHP = 60*(1 + Lv/3)
-        print(f"\n Napotkałeś agresywnego bandyte! ({BHP} HP)")
-        #Na dole pętla walki
-        sleep(0.8)
-        CombatSystem("Bandyta", 60, 10, 1, 1, 2, 1, 2, )
-        
-    if c == 2:
-        print("W oddali widzisz karczme, postanawiasz się tam udać ")
-        sleep(1.4)
-        dc = int(input("Wchodzisz do karczmy, co robisz \n 1. [Zostań na noc i zregeneruj 30% HP za 8 Złota] \n 2. [Posiedz w karczmie] \n 3. [Wyjdź] \n "))
-        while True:
-            if dc == 1:
-                if Gold >= 8:
-                    Gold -= 8
-                    HPRG = MaxHp*0.3
-                    Hp += HPRG
-                    if Hp > MaxHp:
-                        Hp = MaxHp
-                    if HPRG + Hp > MaxHp:
-                        HPRG = MaxHp - Hp
-                    print(f"\n Zostałeś na noc\n +{HPRG} HP \n -8 Złota ")
-                    break
-                else:
-                    print("Nie masz wystarczająco pieniędzy, wybierz ponownie")
-                    dc = input
-            if dc == 2:
-                print("")
-                print("1. Zostałeś okradziony i straciłeś 5 złota \n 2. Wdałeś się w bójkę z lokalnym pijakiem\n 3. Zostałeś wyrzucony \n 4. Grasz w karty \n 5. Wygrałeś zakład i otrzymałeś 6 sztuk Złota \n 6. Spotykasz hojnego maga ")
+    def EnMoves(M, a):
+        global BD, Hp, Gold, BHP, Eff, EnWeakTime, DmgMul
+        if M == 1:
+            if a == 1:
+                BD = random.randint(5 + (Lv*2), 10 + (Lv*2))
+                if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
+                    SpecEff(0)
+                Hp -= BD
                 sleep(1)
-                input("[Rzuć kością]")
-                print("Losowanie...")
-                sleep(1.2)
-                g = random.randint(1, 6)
-                print(f"Wylosowałeś {g}")
-                if g == 1:
-                    go = round(5, 0)
-                    Gold -= go
-                    print(f"Zostałeś okradziony! \n -{go} Złoto")
-                    break
-                if g == 2:
-                    print("Wdałeś się w bójkę z lokalnym pijakiem  ")
-                    BHP = 60*(1+(Lv/3))
-                    BHP = round(BHP, 0)
-                    CombatSystem("Pijak", 50, 8, 2, 1, 2, 1, 2)
-                if g == 3:
-                    print("\n Zostałeś wyrzucony!")
-                    break
-                if g == 4:
+                print(f"\n Bandyta użył pchnięcia, zadał {BD} Obrażeń, teraz masz {Hp} HP")
+            if a == 2:
+                BD = 7*(1 + Lv/2)
+                if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
+                    SpecEff(0)
+                Hp -= BD
+                stel = random.randint(0,1)
+                Gold -= stel
+                sleep(1)
+                print(f"\n Bandyta użył Złodziejstwa , zadał {BD} obrażeń i ukradł {stel} złota, teraz masz {Hp} HP \n")
+        if M == 2:
+            if a == 1:
+                BD = random.randint(6 + (Lv*2), 11 + (Lv*2))
+                if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
+                    SpecEff(0)
+                Hp -= BD
+                sleep(1)
+                print(f"\n Pijak użył pchnięcia i zadał {BD} obrażeń, teraz masz {Hp} HP")
+            if a == 2:
+                BD = 6*(1 + Lv/2)
+                if EnWeakTime == 0:
+                    DmgMul -= 0.2
+                EnWeakTime = 3
+                if ParryTime <= 1 or FogCloudTime >= 1 or ShieldTime >= 1:
+                    SpecEff(0)
+                Hp -= BD
+                sleep(1)
+                print(f"\n pijak użył rozbicia butelki i zadał {BD} obrażeń i nałożył na ciebie efekt [Słabość], teraz masz {Hp} HP \n")
+                
+
+
+            
+                
+                
+    def Timere(Ded):
+        global Hp, SD, M, BHP, Dmg, BD, ParryTime, RageTime, Eff1, DmgMul, FirePistolTime, FogCloudTime, ShieldedDMG, ShieldTime, DisarmTime, WeakTime, EnWeakTime, InhumanRegTime, WizMana, WizRage
+        #Parry
+        if ParryTime <= 1 or Ded == 1:
+            ParryTime = 0
+            SD = 0
+            Eff1 = 0
+            BD = BD
+        if RageTime >= 1:
+            RageTime = RageTime - 1
+            if RageTime == 0 or Ded == 1:
+                DmgMul -= 0.7
+        if FirePistolTime >= 1:
+            FirePistolTime -= 1
+            minid = 5 + Lv*2
+            BHP -= minid
+            print(f"Przeciwnik został dotknięty ogniem za {minid} obrażeń, teraz ma {BHP} HP")
+            if FirePistolTime <= 0 or Ded == 1:
+                FirePistolTime = 0
+        if FogCloudTime >= 1 or Ded == 1:
+            if BD == 0:
+                print("Uniknąłeś ataku przeciwnika!")
+            FogCloudTime -= 1
+        if ShieldTime >= 1:
+            ShieldTime -= 1
+            print(f"Osłoniłeś się przed atakiem przeciwnika, teraz masz {M} Many i {Hp} HP")
+        if DisarmTime >= 1:
+            DisarmTime = 0
+            print("Przeciwnik jest ogłuszony")
+        if WeakTime >= 1:
+            WeakTime -= 1
+            if Ded == 1:
+                WeakTime = 0
+        if EnWeakTime >= 1:
+            EnWeakTime -= 1
+            if Ded == 1 or EnWeakTime == 0:
+                DmgMul += 0.2
+        if InhumanRegTime >= 1:
+            p = BD*0.5
+            InhumanRegTime -= 1
+            Hp += p
+            if Hp > MaxHp:
+                Hp = MaxHp
+            print(f"+{p}HP, teraz masz {Hp} HP")
+        if WizRage == 1:
+            DmgMul += 0.4
+            WizRage = 2
+        if WizMana ==  1:
+            M = MaxM
+            if Ded == 1:
+                WizMana = 0
+        if Ded == 1 and WizRage >= 2:
+            DmgMul -= 0.4
+            WizRage = 0
+        Hp = round(Hp, 1)
+        BHP = round(BHP, 1)
+
+
+
+
+            
+            
+
+
+    def AS():
+        L = int(input("\n Wybierz umiejętność od 1 do 4 "))
+        L1 = D[(L - 1)]
+        sleep(0.3)
+        Moves(L1)
+    def Stats():
+        print("\n ", Klasa, "Statystyki")
+        print("       Lv ", Lv)
+        print("       HP ", Hp,"/",MaxHp)
+        print("       Mana ", M,"/",MaxM)
+        print("       Twoja Talia", D)
+        print("       Złoto" , Gold)
+        print("       Exp", Exp,"/",Exp1)
+    print(Stats())
+    #funkcje ^
+    while True:
+        c = random.randint(1, 3)
+        sleep(1.4)
+        if c == 1 or c == 3:
+            BHP = 60*(1 + Lv/3)
+            print(f"\n Napotkałeś agresywnego bandyte! ({BHP} HP)")
+            #Na dole pętla walki
+            sleep(0.2)
+            CombatSystem("Bandyta", 60, 10, 1, 1, 2, 1, 2)
+            
+        if c == 2:
+            print("W oddali widzisz karczme, postanawiasz się tam udać ")
+            sleep(1.4)
+            dc = int(input("Wchodzisz do karczmy, co robisz \n 1. [Zostań na noc i zregeneruj 30% HP za 8 Złota] \n 2. [Posiedz w karczmie] \n 3. [Wyjdź] \n "))
+            while True:
+                if dc == 1:
+                    if Gold >= 8:
+                        Gold -= 8
+                        HPRG = MaxHp*0.3
+                        Hp += HPRG
+                        if Hp > MaxHp:
+                            Hp = MaxHp
+                        if HPRG + Hp > MaxHp:
+                            HPRG = MaxHp - Hp
+                        print(f"\n Zostałeś na noc\n +{HPRG} HP \n -8 Złota ")
+                        break
+                    else:
+                        print("Nie masz wystarczająco pieniędzy, wybierz ponownie")
+                        dc = input
+                if dc == 2:
                     print("")
-                    print("grasz w karty z lokalnym bogaczem, obaj rzucacie trzy razy kością, osoba z większą ilością punktów wygrywa")
+                    print("1. Zostałeś okradziony i straciłeś 5 złota \n 2. Wdałeś się w bójkę z lokalnym pijakiem\n 3. Zostałeś wyrzucony \n 4. Grasz w karty \n 5. Wygrałeś zakład i otrzymałeś 6 sztuk Złota \n 6. Spotykasz hojnego maga ")
                     sleep(1)
-                    while True:
-                        if Gold <= 0:
-                            print("Nie masz pieniędzy")
-                            break
-                        Reward = input("Ile złota chcesz obstawić")
-                        if Reward <= 0:
-                            print("Obtawiłeś wogle jakieś Złoto??? Bogacz uznaje to za obraze i zostajesz wyrzucony z karczmy")
-                        if int(Reward) <= Gold:
-                            npc = 0
-                            player = 0
-                            sleep(1)
-                            for i in range(3):
-                                print("Przeciwnik losuje liczbe")
-                                d = random.randint(1, 6)
-                                npc += d
-                                sleep(1)
-                                print(f"Wylosował {d}")
-                                input("[Rzuć kością]")
-                                print("Losowanie...")
-                                d = random.randint(1, 6)
-                                player += d
-                                sleep(1)
-                                print(f"Wylosowałeś {d}")
-                                sleep(1)
-                            if npc > player:
-                                print(f"Przegrałeś zakład \n -{Reward} Gold")
-                                Gold -= int(Reward)
+                    input("[Rzuć kością]")
+                    print("Losowanie...")
+                    sleep(1.2)
+                    g = random.randint(1, 6)
+                    print(f"Wylosowałeś {g}")
+                    if g == 1:
+                        go = round(5, 0)
+                        Gold -= go
+                        print(f"Zostałeś okradziony! \n -{go} Złoto")
+                        break
+                    if g == 2:
+                        print("Wdałeś się w bójkę z lokalnym pijakiem  ")
+                        BHP = 60*(1+(Lv/3))
+                        BHP = round(BHP, 0)
+                        CombatSystem("Pijak", 50, 8, 2, 1, 2, 1, 2)
+                    if g == 3:
+                        print("\n Zostałeś wyrzucony!")
+                        break
+                    if g == 4:
+                        print("")
+                        print("grasz w karty z lokalnym bogaczem, obaj rzucacie trzy razy kością, osoba z większą ilością punktów wygrywa")
+                        sleep(1)
+                        while True:
+                            if Gold <= 0:
+                                print("Nie masz pieniędzy")
                                 break
-                            if npc == player:
-                                print("Remis! Nic nie tracisz ani nic nie wygrywasz")
-                                break
-                            if player > npc:
-                                print(f"Wygrałeś zakład! \n +{Reward} Gold")
-                                Gold += int(Reward)
-                                break
-                        else:
-                            print("Nie masz pieniędzy")
-                if g == 5:
-                    print("Wygrałeś zakład \n +6 Gold")
-                    Gold += 6
-                    break
-                if g == 6:
-                    print("Spotykasz hojnego maga")
-                    sleep(1)
-                    print("Pozwala ci wybrać jedną z jego mikstur")
-                    gift = int(input("1. Mikstura Szału [+40% obrażeń przez następną walke] \n 2. Mikstura Leczenia [Ulecz 40% HP] \n 3. Mikstura Many [Nieskończona mana na następną walke] "))
-                    if gift == 1:
-                        print("Podziękowałeś Magowi i wypiłeś miksture szału")
-                        WizRage = 1
-                    if gift == 2:
-                        print("Podziękowałeś Magowi i wypiłeś miksture leczenia")
-                        d = Hp*0.4
-                        if Hp + d > MaxHp:
-                            d = MaxHp - Hp
-                        Hp += d 
-                        print(f"+{d} HP")
-                    if gift == 3:
-                        print("Podziękowałeś Magowi i wypiłeś miksture many")
-                        WizMana = 1
+                            Reward = input("Ile złota chcesz obstawić")
+                            if int(Reward) <= 0:
+                                print("Obtawiłeś wogle jakieś Złoto??? Bogacz uznaje to za obraze i zostajesz wyrzucony z karczmy")
+                            if int(Reward) <= Gold:
+                                npc = 0
+                                player = 0
+                                sleep(1)
+                                for i in range(3):
+                                    print("Przeciwnik losuje liczbe")
+                                    d = random.randint(1, 6)
+                                    npc += d
+                                    sleep(1)
+                                    print(f"Wylosował {d}")
+                                    input("[Rzuć kością]")
+                                    print("Losowanie...")
+                                    d = random.randint(1, 6)
+                                    player += d
+                                    sleep(1)
+                                    print(f"Wylosowałeś {d}")
+                                    sleep(1)
+                                if npc > player:
+                                    print(f"Przegrałeś zakład \n -{Reward} Gold")
+                                    Gold -= int(Reward)
+                                    break
+                                if npc == player:
+                                    print("Remis! Nic nie tracisz ani nic nie wygrywasz")
+                                    break
+                                if player > npc:
+                                    print(f"Wygrałeś zakład! \n +{Reward} Gold")
+                                    Gold += int(Reward)
+                                    break
+                            else:
+                                print("Nie masz pieniędzy")
+                    if g == 5:
+                        print("Wygrałeś zakład \n +6 Gold")
+                        Gold += 6
+                        break
+                    if g == 6:
+                        print("Spotykasz hojnego maga")
+                        sleep(1)
+                        print("Pozwala ci wybrać jedną z jego mikstur")
+                        gift = int(input("1. Mikstura Szału [+40% obrażeń przez następną walke] \n 2. Mikstura Leczenia [Ulecz 40% HP] \n 3. Mikstura Many [Nieskończona mana na następną walke] "))
+                        if gift == 1:
+                            print("Podziękowałeś Magowi i wypiłeś miksture szału")
+                            WizRage = 1
+                        if gift == 2:
+                            print("Podziękowałeś Magowi i wypiłeś miksture leczenia")
+                            d = Hp*0.4
+                            if Hp + d > MaxHp:
+                                d = MaxHp - Hp
+                            Hp += d 
+                            print(f"+{d} HP")
+                        if gift == 3:
+                            print("Podziękowałeś Magowi i wypiłeś miksture many")
+                            WizMana = 1
 
 
 
-            print("Wychodzisz z karczmy")
-            sleep(1.3)
+                print("Wychodzisz z karczmy")
+                sleep(1.3)
+                break
+        if 0 >= Hp:
+            sleep(1.5)
+            print("Ładowanie nowej gry...\n")
+            sleep(2)
             break
+            
+        
