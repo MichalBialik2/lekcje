@@ -19,6 +19,7 @@ while True:
     SD = 0
     DmgMul = 1
     Tura = 0
+    Inventory = ["Wyjdź"]
     #  ^ Start
     ParryTime = 0
     RageTime = 0
@@ -247,10 +248,52 @@ while True:
                     if M > MaxM:
                         M = MaxM
                     print(f"Strzeliłeś prosto w głowe! Zadałeś {Dmg} and i odnowiłeś 5 Many, Przeciwnik ma {BHP} HP")
+    def Inv():
+        global M, WizRage, BHP, WizMana, Dmg, Eff, Eff1, ParryTime, RageTime, DmgMul, Lv, FirePistolTime, Hp, FogCloudTime, ShieldTime, ShieldedDMG, DisarmTime, WeakTime
+        if len(Inventory) == 1:
+            print("Nie masz nic w ekwipunku")
+        else:
+            print(Inventory)
+            L = int(input("\n Wybierz którego przedmiotu chcesz użyć"))
+            L1 = Inventory[(L - 1)]
+            sleep(0.3)
+            if L1 == "Wyjdź":
+                print("Idziesz dalej..")
+            if L1 == "Mikstura Życia":
+                d = Hp*0.4
+                if Hp + d > MaxHp:
+                    d = MaxHp - Hp
+                Hp += d
+                print(f"+{d}HP")
+                Inventory.remove("Mikstura Życia")
+            if L1 == "Mikstura Szału":
+                WizRage = 1
+                print("+40% Obrażeń w następnej walce")
+                Inventory.remove("Mikstura Szału")
+            if L1 == "Mikstura Many":
+                WizMana = 1
+                print("+Nieszkończona Mana na następną walke")
+                Inventory.remove("Mikstura Many")
+            
+    def InvGet(item):
+        sleep(1)
+        if item == "Mikstura Many":
+            Inventory.append("Mikstura Many")
+            print("Otrzymałeś [Mikstura Many]")
+            Inventory.remove("Wyjdź")
+            Inventory.append("Wyjdź")
+        if item == "Mikstura Szału":
+            Inventory.append("Mikstura Szału")
+            print("Otrzymałeś [Mikstura Szału]")
+            Inventory.remove("Wyjdź")
+            Inventory.append("Wyjdź")
+        if item == "Mikstura Życia":
+            Inventory.append("Mikstura Życia")
+            print("Otrzymałeś [Mikstura Życia]")
+            Inventory.remove("Wyjdź")
+            Inventory.append("Wyjdź")
 
-                    
-                    
-                    
+
     def CombatSystem(Name, Exp, Gol, Type, Att1, Att2, Att3, Att4):
         global Tura, BHP, SD, Gold, Hp
         while True:
@@ -453,6 +496,16 @@ while True:
     #funkcje ^
     while True:
         c = random.randint(1, 3)
+        sleep(2)
+        Odp = int(input("Co chcesz zrobić \n 1. Idziesz dalej \n 2. Otwierasz ekwipunek \n 3. Sprawdź statystyki"))
+        if Odp == 2:
+            Inv()
+            sleep(2)
+        if Odp == 3:
+            Stats()
+            sleep(2)
+        sleep(0.5)
+        print("Idziesz dalej")
         sleep(1.4)
         if c == 1 or c == 3:
             BHP = 60*(1 + Lv/3)
@@ -460,16 +513,25 @@ while True:
             #Na dole pętla walki
             sleep(0.2)
             CombatSystem("Bandyta", 60, 10, 1, 1, 2, 1, 2)
+            ran = random.randint(1, 100)
+            if ran >= 65:
+                ran2 = random.randint(1, 3)
+                if ran2 == 1:
+                    InvGet("Mikstura Szału")
+                if ran2 == 2:
+                    InvGet("Mikstura Many")
+                if ran2 == 3:
+                    InvGet("Mikstura Życia")
             
         if c == 2:
             print("W oddali widzisz karczme, postanawiasz się tam udać ")
             sleep(1.4)
-            dc = int(input("Wchodzisz do karczmy, co robisz \n 1. [Zostań na noc i zregeneruj 30% HP za 8 Złota] \n 2. [Posiedz w karczmie] \n 3. [Wyjdź] \n "))
+            dc = int(input("Wchodzisz do karczmy, co robisz \n 1. [Zostań na noc i zregeneruj 25% HP za 8 Złota] \n 2. [Posiedz w karczmie] \n 3. [Wyjdź] \n "))
             while True:
                 if dc == 1:
                     if Gold >= 8:
                         Gold -= 8
-                        HPRG = MaxHp*0.3
+                        HPRG = MaxHp*0.25
                         Hp += HPRG
                         if Hp > MaxHp:
                             Hp = MaxHp
@@ -553,24 +615,21 @@ while True:
                         print("Pozwala ci wybrać jedną z jego mikstur")
                         gift = int(input("1. Mikstura Szału [+40% obrażeń przez następną walke] \n 2. Mikstura Leczenia [Ulecz 40% HP] \n 3. Mikstura Many [Nieskończona mana na następną walke] "))
                         if gift == 1:
-                            print("Podziękowałeś Magowi i wypiłeś miksture szału")
-                            WizRage = 1
+                            print("Podziękowałeś Magowi i przyjąłeś miksture szału")
+                            InvGet("Mikstura Szału")
                         if gift == 2:
-                            print("Podziękowałeś Magowi i wypiłeś miksture leczenia")
-                            d = Hp*0.4
-                            if Hp + d > MaxHp:
-                                d = MaxHp - Hp
-                            Hp += d 
-                            print(f"+{d} HP")
+                            print("Podziękowałeś Magowi i przyjąłeś miksture Życia")
+                            InvGet("Mikstura Życia")
                         if gift == 3:
-                            print("Podziękowałeś Magowi i wypiłeś miksture many")
-                            WizMana = 1
+                            print("Podziękowałeś Magowi i wprzyjąłeś miksture many")
+                            InvGet("Mikstura Many")
 
 
 
                 print("Wychodzisz z karczmy")
                 sleep(1.3)
                 break
+
         if 0 >= Hp:
             sleep(1.5)
             print("Ładowanie nowej gry...\n")
