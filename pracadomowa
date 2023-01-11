@@ -1,0 +1,29 @@
+class klasa():
+
+    def __init__(self, wiek, hobby1, hobby2, hobby3, przywitaniesie, k, jedzenie, imie):
+        self.wiek = wiek
+        self.hobby1 = hobby1
+        self.hobby2 = hobby2
+        self.hobby3 = hobby3
+        self.k = k
+        self.przywitaniesie = przywitaniesie
+        self.jedzenie = jedzenie
+        self.imie = imie
+
+    def wynik(self):
+        return self.przywitaniesie + " Mam na imie " + self.imie + " mam " + str(self.wiek) + " lat" + " moje hobby to" + self.hobby1 + ", " + self.hobby2 + " i " + self.hobby3 + " lubie kolor " + self.k + " i "  + self.jedzenie
+bartek = klasa(13.5, "gry komputerowe", "fizyka", "hejt", "Dobry wieczór milordzie", "zielony", "sphagetii z marchewkami", "bartek")
+szymon = klasa(16, "kolega po lewej", "komunikacja miejska", "polska muzyka", "siema", "żółty", "złej jakości kebab", "szymon")
+zosia = klasa(19, "koty", "gra pokemon go", "heavy metal", "czesc", "czarny", "opłatek", "zosia")
+jaroslaw = klasa(61, "koty", "koty", "disco polo", "Dobrywieczór", "biały", "schabowe", "jarosław")
+Wojtłomił = klasa(14.2, "war thunder", "napalm", "drony", "hej", "czarny", "drwal", "Wojtłomił")
+paul = klasa(42, "meta pop", "tiktok", "zapuszczanie brody", "hello", "blond", "czekotubka", "paul")
+kazik = klasa(11, "melodical metal", "death metal", "heavy metal", "dzień dobry", "czarny", "kiełbasa", "kazik")
+Gniewomił = klasa(81, "spacery", "hazard", "chodowanie gargantuicznej tarantuli", "hola", "fioletowy", "żurek", "Gniewomił")
+print(jaroslaw.wynik())
+print(szymon.wynik())
+print(zosia.wynik())
+print(Wojtłomił.wynik())
+print(bartek.wynik())
+print(kazik.wynik())
+print(Gniewomił.wynik())
