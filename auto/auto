@@ -1,7 +1,7 @@
 from silnik import Silnik
 from akumulator import Akumulator
 from sprzeglo import skrzyniabiegow
-from bagaznik import bagaznik
+from koniemechaniczne import koniemechaniczne
 
 class Auto:
     def __init__(self, wlasciciel : str) -> None:
@@ -9,7 +9,7 @@ class Auto:
         self.__akumlator = Akumulator()
         self.__silnik = Silnik()
         self.__skrzyniabiegow = skrzyniabiegow()
-        self.__bagaznik = bagaznik()
+        self.__koniemechaniczne = koniemechaniczne()
 
     def all_information(self):
         print("="*40)
@@ -17,7 +17,7 @@ class Auto:
         self.__akumlator.informacje()
         self.__silnik.informacje()
         self.__skrzyniabiegow.informacje()
-        self.__bagaznik.informacje()
+        self.__koniemechaniczne.informacje()
         print("="*40)
 
     def zmien_informacje(self):
@@ -26,8 +26,8 @@ class Auto:
             print("a - silnik")
             print("b - akumulator")
             print('c - skrzynia biegow')
-            print('d - bagaznik')
-            print('e - eggsit')
+            print('d - koniemechaniczne')
+            print('e - koniec')
             inp = input().lower().strip()
             if inp == "a":
                 self.__silnik.zmien_informacje_silnik()
@@ -36,7 +36,7 @@ class Auto:
             if inp == "c":
                 self.__skrzyniabiegow.zmiendaneskrzynibiegow()
             if inp == "d":
-                self.__bagaznik.zmiendanebagaznik()
+                self.__koniemechaniczne.zmiendanekoniemechaniczne()
             if inp == 'e':
                 break
             
