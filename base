@@ -1,0 +1,17 @@
+from auto import Auto
+
+
+auto = Auto("smok")
+
+
+while True:
+    auto.all_information()
+    print('Zmienić info?')
+    print('1. tak')
+    print('2. nie')
+    inp2 = input().lower()
+    if inp2 == 'tak':
+        auto.zmien_informacje()
+    if inp2 == 'nie':
+        auto.all_information()
+        break
