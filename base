@@ -1,0 +1,17 @@
+from auto import Auto
+
+
+auto = Auto("bmw")
+
+
+while True:
+    auto.all_information()
+    print('Zmienić informacje?')
+    print('1. Tak')
+    print('2. Nie')
+    inp2 = input().lower()
+    if inp2 == '1':
+        auto.zmien_informacje()
+    if inp2 == '2':
+        auto.all_information()
+        break
