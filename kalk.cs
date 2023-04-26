@@ -1,63 +1,73 @@
-    internal class Program
-    {
+
         static void Main(string[] args)
         {
-            Console.WriteLine("0 - pole kwadratu, 1 - pole prostokata, 2 - pole trojkata, 3 - pole rownolegloboku, 4 - pole trapezu, 5 - pole kola, 6 - objetosc szescianu,");
-            Console.WriteLine("7 - objetosc prostopadloscianu, 8 - objetosc walca, 9 - objetosc kuli, 10 - pole powierzchni szescianu, 11 - pole powierzchni prostopadloscianu, 12 - pole powierzchni walca");
-            int inp = int.Parse(Console.ReadLine());
+            Console.WriteLine("1 - pole kwadratu, 2 - pole prostokata, 3 - pole trojkata, 4 - pole rownolegloboku, 5 - pole trapezu, 6 - pole kola, 7 - objetosc szescianu,");
+            Console.WriteLine("8 - objetosc prostopadloscianu, 9 - objetosc walca, 10 - objetosc kuli, 11 - pole powierzchni szescianu, 12 - pole powierzchni prostopadloscianu, 12 - pole powierzchni walca");
+            int inp = int.Parse(Console.ReadLine()); - 1
             switch (inp)
             {
                 case 0:
-                    Console.WriteLine("dej a");
-                    Console.WriteLine(wzory.pkwadratu(int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    Console.WriteLine(Math.Pow(a, 2));
                     break;
                 case 1:
-                    Console.WriteLine("dej a,b");
-                    Console.WriteLine(wzory.pprostokata(int.Parse(Console.ReadLine()),int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    int b = int.Parse(Console.ReadLine());
+                    Console.WriteLine(a * b);
                     break;
                 case 2:
-                    Console.WriteLine("dej a,h");
-                    Console.WriteLine(wzory.ptrjkt(int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    int h = int.Parse(Console.ReadLine());
+                    Console.WriteLine(a * h/2);
                     break;
                 case 3:
-                    Console.WriteLine("dej a,h");
-                    Console.WriteLine(wzory.prowno(int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    int h = int.Parse(Console.ReadLine());
+                    Console.WriteLine(a * h);
                     break;
                 case 4:
-                    Console.WriteLine("dej a,b,c");
-                    Console.WriteLine(wzory.ptrapez(int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    int b = int.Parse(Console.ReadLine());
+                    int h = int.Parse(Console.ReadLine());
+                    Console.WriteLine((a+b)*h/2);
                     break;
                 case 5:
-                    Console.WriteLine("dej r");
-                    Console.WriteLine(wzory.pkola(int.Parse(Console.ReadLine())));
+                    int r = int.Parse(Console.ReadLine());
+                    Console.WriteLine(Math.PI *Math.Pow(r,2));
                     break;
                 case 6:
-                    Console.WriteLine("dej a");
-                    Console.WriteLine(wzory.objszesc(int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    Console.WriteLine(Math.Pow(a, 3));
                     break;
                 case 7:
-                    Console.WriteLine("dej a,b,c");
-                    Console.WriteLine(wzory.objprostopadloscianu(int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    int b = int.Parse(Console.ReadLine());
+                    int c = int.Parse(Console.ReadLine());
+                    Console.WriteLine(a*b*c);
                     break;
                 case 8:
-                    Console.WriteLine("dej r,h");
-                    Console.WriteLine(wzory.objwalca(int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine())));
+                    int r = int.Parse(Console.ReadLine());
+                    int h = int.Parse(Console.ReadLine());
+                    Console.WriteLine(Math.PI * Math.Pow(r, 2)* h);
                     break;
                 case 9:
-                    Console.WriteLine("dej r");
-                    Console.WriteLine(wzory.objkuli(int.Parse(Console.ReadLine())));
+                    int r = int.Parse(Console.ReadLine());
+                    Console.WriteLine(Math.PI * Math.Pow(r, 2)*4/3);
                     break;
                 case 10:
-                    Console.WriteLine("dej a");
-                    Console.WriteLine(wzory.pszesc(int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    Console.WriteLine(a*6);
                     break;
                 case 11:
-                    Console.WriteLine("dej a,b,c");
-                    Console.WriteLine(wzory.pprostopadl(int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine())));
+                    int a = int.Parse(Console.ReadLine());
+                    int b = int.Parse(Console.ReadLine());
+                    int c = int.Parse(Console.ReadLine());
+                    Console.WriteLine(2*a*b+2*b*c+2*a*c);
                     break;
                 case 12:
-                    Console.WriteLine("dej r,h");
-                    Console.WriteLine(wzory.pwalca(int.Parse(Console.ReadLine()), int.Parse(Console.ReadLine())));
+                    int r = int.Parse(Console.ReadLine());
+                    int h = int.Parse(Console.ReadLine());
+                    Console.WriteLine(Math.PI * Math.Pow(r, 2)+Math.PI*2*r*h);
                     break;
                 
             }
